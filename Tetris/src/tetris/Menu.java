@@ -4,7 +4,6 @@ package tetris;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,8 +18,8 @@ public class Menu extends JPanel
 {
 	private static final long serialVersionUID = 1L;
 
-	public Difficulty difficulty = Difficulty.BEGINNER;
-	public Size boardSize = Size.SMALL;
+	public static Difficulty difficulty = Difficulty.NORMAL;
+	public static Size boardSize = Size.MEDIUM;
 	
 	private Image bgImage = null;
 
@@ -29,23 +28,27 @@ public class Menu extends JPanel
 		// frame
 		JFrame f = new JFrame("TETRIS");
 		f.add(this);
+		
 		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		f.setSize(700, 600);
+		f.setSize(Tetris.WINDOWWIDTH, Tetris.WINDOWHEIGHT);
 		f.setResizable(false);
 		
 		// panel
 		setBackground(Color.BLACK);
-		setLayout(new BorderLayout());
+		setLayout(new GridLayout(12,1));
 
 		// panel components
 		MenuButton lvl_b = new MenuButton("images/btn_beginner", ".png");
-		MenuButton lvl_i = new MenuButton("images/btn_normal", ".png");
+		MenuButton lvl_n = new MenuButton("images/btn_normal", ".png");
 		MenuButton lvl_a = new MenuButton("images/btn_advanced", ".png");
-		MenuButton lvl_l = new MenuButton("images/btn_legendary", ".png");
+		MenuButton lvl_l = new MenuButton("images/btn_legend", ".png");
 		
 		MenuButton size_s = new MenuButton("images/btn_small", ".png");
 		MenuButton size_m = new MenuButton("images/btn_medium", ".png");
 		MenuButton size_l = new MenuButton("images/btn_large", ".png");
+		
+		lvl_n.setSelected(true);;
+		size_m.setSelected(true);
 		
 		lvl_b.addActionListener(new ActionListener()
 			{
@@ -53,19 +56,19 @@ public class Menu extends JPanel
 				{
 						difficulty = Difficulty.BEGINNER;
 						lvl_b.setSelected(true);
-						lvl_i.setSelected(false);
+						lvl_n.setSelected(false);
 						lvl_a.setSelected(false);
 						lvl_l.setSelected(false);
 				}	
 			});
 	
-		lvl_i.addActionListener(new ActionListener()
+		lvl_n.addActionListener(new ActionListener()
 			{
 				public void actionPerformed(ActionEvent e)
 				{
 						difficulty = Difficulty.NORMAL;
 						lvl_b.setSelected(false);
-						lvl_i.setSelected(true);
+						lvl_n.setSelected(true);
 						lvl_a.setSelected(false);
 						lvl_l.setSelected(false);
 				}	
@@ -77,7 +80,7 @@ public class Menu extends JPanel
 				{
 						difficulty = Difficulty.ADVANCED;
 						lvl_b.setSelected(false);
-						lvl_i.setSelected(false);
+						lvl_n.setSelected(false);
 						lvl_a.setSelected(true);
 						lvl_l.setSelected(false);
 				}	
@@ -87,24 +90,24 @@ public class Menu extends JPanel
 			{
 				public void actionPerformed(ActionEvent e)
 				{
-						difficulty = Difficulty.LEGENDARY;
+						difficulty = Difficulty.LEGEND;
 						lvl_b.setSelected(false);
-						lvl_i.setSelected(false);
+						lvl_n.setSelected(false);
 						lvl_a.setSelected(false);
 						lvl_l.setSelected(true);
 				}	
 			});
 		
 		size_s.addActionListener(new ActionListener()
-				{
-					public void actionPerformed(ActionEvent e)
-					{
-						boardSize = Size.SMALL;
-						size_s.setSelected(true);
-						size_m.setSelected(false);
-						size_l.setSelected(false);
-					}
-				});
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				boardSize = Size.SMALL;
+				size_s.setSelected(true);
+				size_m.setSelected(false);
+				size_l.setSelected(false);
+			}
+		});
 		
 		size_m.addActionListener(new ActionListener()
 		{
@@ -128,42 +131,28 @@ public class Menu extends JPanel
 			}
 		});
 		
-		class emptyCell extends JPanel
-		{
-			private static final long serialVersionUID = 1L;
-
-			public emptyCell()
-			{
-				super();
-				setOpaque(false);
-			}
-		}
-		
 		JPanel layoutDiff = new JPanel();
-		layoutDiff.setLayout(new GridLayout(1, 4));
+		layoutDiff.setLayout(new GridLayout(1, 6));
 		layoutDiff.setOpaque(false);
 		
+		layoutDiff.add(new EmptyPanel());
 		layoutDiff.add(lvl_b);
-		layoutDiff.add(lvl_i);
+		layoutDiff.add(lvl_n);
 		layoutDiff.add(lvl_a);
 		layoutDiff.add(lvl_l);
+		layoutDiff.add(new EmptyPanel());
 		
 		JPanel layoutSize = new JPanel();
-		layoutSize.setLayout(new GridLayout(1,3));
+		layoutSize.setLayout(new GridLayout(1,7));
 		layoutSize.setOpaque(false);
 		
+		layoutSize.add(new EmptyPanel());
+		layoutSize.add(new EmptyPanel());
 		layoutSize.add(size_s);
 		layoutSize.add(size_m);
 		layoutSize.add(size_l);
-		
-		JPanel layoutButtons = new JPanel();
-		layoutButtons.setLayout(new GridLayout(4,1));
-		layoutButtons.setOpaque(false);
-		
-		layoutButtons.add(new emptyCell());
-		layoutButtons.add(layoutDiff);
-		layoutButtons.add(new emptyCell());
-		layoutButtons.add(layoutSize);
+		layoutSize.add(new EmptyPanel());
+		layoutSize.add(new EmptyPanel());
 		
 		MenuButton btnPlay = new MenuButton("images/btn_play", ".png");
 		
@@ -171,14 +160,23 @@ public class Menu extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				// start game
+				// start game, pass active window along
 				f.setVisible(false);
-				new Tetris(difficulty, boardSize);
+				new Tetris();
 			}
 		});
 		
-		add(btnPlay, BorderLayout.SOUTH);
-		add(layoutButtons, BorderLayout.NORTH);
+		add(new EmptyPanel());
+		add(new EmptyPanel());
+		add(new EmptyPanel());
+		add(new EmptyPanel());
+		add(new EmptyPanel());
+		add(new EmptyPanel());
+		add(layoutDiff);
+		add(new EmptyPanel());
+		add(layoutSize);
+		add(new EmptyPanel());
+		add(btnPlay);
 		
 		setVisible(true);
 		f.setVisible(true);
@@ -202,7 +200,6 @@ public class Menu extends JPanel
 	    {
 	    	
 	    }
-
 	}
 	
 	public static void main(String[] args)

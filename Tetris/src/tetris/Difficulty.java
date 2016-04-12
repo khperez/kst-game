@@ -6,5 +6,5 @@ public enum Difficulty
 	BEGINNER,
 	NORMAL,
 	ADVANCED,
-	LEGENDARY
+	LEGEND
 }

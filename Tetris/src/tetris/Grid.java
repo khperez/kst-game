@@ -23,20 +23,36 @@ public class Grid
 	public static int HEIGHT = 20; // Width and Height of Grid in number of squares
 	public static int WIDTH = 10;
 	private static final int BORDER = 5;
-	public static final int LEFT = 100; // pixel position of left of grid
-	public static final int TOP = 50; // pixel position of top of grid
+	public static int LEFT = 100; // pixel position of left of grid
+	public static int TOP = 50; // pixel position of top of grid
 	public static final Color EMPTY = Color.WHITE;
 
 	/** Creates the grid */
-	public Grid(Size s)
+	public Grid()
 	{
-		switch(s)
+		// set width and height based on selected board size from menu
+		switch(Menu.boardSize)
 		{
-			case SMALL: WIDTH = 10; HEIGHT = 20; break;
-			case MEDIUM: WIDTH = 16; HEIGHT = 32; break;
-			case LARGE: WIDTH = 22; HEIGHT = 44; break;
-			default: WIDTH = 10; HEIGHT = 20; break;
+			case SMALL:
+					WIDTH = 10;
+					HEIGHT = 20;
+					break;
+			case MEDIUM:
+					WIDTH = 16;
+					HEIGHT = 32;
+					break;
+			case LARGE:
+					WIDTH = 22;
+					HEIGHT = 44;
+					break;
+			default: WIDTH = 10; 
+					 HEIGHT = 20;
+					 break;
 		}
+		
+		// evaluate top and left values to draw board in center.
+		TOP = ((Tetris.WINDOWHEIGHT / 2) - ((HEIGHT / 2) * Square.HEIGHT));
+		LEFT = ((Tetris.WINDOWWIDTH / 2) - ((WIDTH / 2) * Square.WIDTH));
 		
 		board = new Square[HEIGHT][WIDTH];
 
@@ -111,13 +127,11 @@ public class Grid
 	public void draw(Graphics g)
 	{
 		// draw the edges as rectangles: left, right in blue then bottom in red
-		g.setColor(Color.BLUE);
+		g.setColor(Color.GRAY);
 		g.fillRect(LEFT - BORDER, TOP, BORDER, HEIGHT * Square.HEIGHT);
-		g.fillRect(LEFT + WIDTH * Square.WIDTH, TOP, BORDER, HEIGHT
-				* Square.HEIGHT);
-		g.setColor(Color.RED);
-		g.fillRect(LEFT - BORDER, TOP + HEIGHT * Square.HEIGHT, WIDTH
-				* Square.WIDTH + 2 * BORDER, BORDER);
+		g.fillRect(LEFT + WIDTH * Square.WIDTH, TOP, BORDER, HEIGHT * Square.HEIGHT);
+		g.setColor(Color.DARK_GRAY);
+		g.fillRect(LEFT - BORDER, TOP + HEIGHT * Square.HEIGHT, WIDTH * Square.WIDTH + 2 * BORDER, BORDER);
 
 		// draw all the squares in the grid
 		// empty ones first (to avoid masking the black lines of the pieces that have already fallen)

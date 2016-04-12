@@ -13,12 +13,13 @@ public class Game
 	private Tetris display; // the visual for the Tetris game
 	private AbstractPiece piece; // the current piece that is dropping
 	private boolean isOver; // has the game finished?
+	private static boolean isPaused; // is the game paused?
 
 	/** Creates a Tetris game
 	 * @param Tetris the display */
-	public Game(Tetris display, Size s)
+	public Game(Tetris display)
 	{
-		grid = new Grid(s);
+		grid = new Grid();
 		this.display = display;
 		//piece = new LShape(1, Grid.WIDTH / 2 - 1, grid);
 		piece = randomPiece(); // SERGIO 4/7/16 //
@@ -69,6 +70,16 @@ public class Game
 		}
 		return false;
 	}
+	
+	public boolean isPaused()
+	{
+		return isPaused;
+	}
+	
+	public void setPausedState(boolean state)
+	{
+		isPaused = state;
+	}
 
 	/** Updates the piece */
 	private void updatePiece()
@@ -104,7 +115,19 @@ public class Game
 	{
 		AbstractPiece p;
 		Random rand = new Random();
-		int center = Grid.WIDTH/2-1;
+		int center;
+		
+		if (Menu.difficulty.equals(Difficulty.ADVANCED) || Menu.difficulty.equals(Difficulty.LEGEND))
+		{
+			int max = Grid.WIDTH-4;
+			int min = 1;
+			center = rand.nextInt(max - min + 1) + min;
+		}
+		
+		else
+		{
+			center = Grid.WIDTH/2-1;
+		}
 		
 		switch(rand.nextInt(7))
 		{

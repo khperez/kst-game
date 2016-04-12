@@ -22,10 +22,10 @@ public class SquareShape extends AbstractPiece
 		ableToMove = true;
 
 		// Create the squares
-		square[0] = new Square(g, r, c - 1, Color.gray, true);
-		square[1] = new Square(g, r, c, Color.gray, true);
-		square[2] = new Square(g, r + 1, c - 1, Color.gray, true);
-		square[3] = new Square(g, r + 1, c, Color.gray, true);
+		square[0] = new Square(g, r, c - 1, Color.YELLOW, true);
+		square[1] = new Square(g, r, c, Color.YELLOW, true);
+		square[2] = new Square(g, r + 1, c - 1, Color.YELLOW, true);
+		square[3] = new Square(g, r + 1, c, Color.YELLOW, true);
 	}
 	
 	// Katherine 4/8/16 //

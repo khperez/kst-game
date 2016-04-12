@@ -1,6 +1,11 @@
 package tetris;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 /**
  * One Square on our Tetris Grid or one square in our Tetris game piece 
@@ -140,11 +145,37 @@ public class Square {
 		int actualX = Grid.LEFT + col * WIDTH;
 		int actualY = Grid.TOP + row * HEIGHT;
 		g.setColor(color);
-		g.fillRect(actualX, actualY, WIDTH, HEIGHT);
-		// black border (if not empty)
-		if (!color.equals(Grid.EMPTY)) {
-			g.setColor(Color.BLACK);
-			g.drawRect(actualX, actualY, WIDTH, HEIGHT);
+		
+		String squareFile = null;
+		
+		if(color.equals(Grid.EMPTY))
+		{
+			g.fillRect(actualX, actualY, WIDTH, HEIGHT);
 		}
+		
+		else
+		{
+			try
+			{
+				if (color.equals(Color.RED)) squareFile = "images/square_red.png";
+				else if (color.equals(Color.BLUE)) squareFile = "images/square_blue.png";
+				else if (color.equals(Color.ORANGE)) squareFile = "images/square_orange.png";
+				else if (color.equals(Color.YELLOW)) squareFile = "images/square_yellow.png";
+				else if (color.equals(Color.GREEN)) squareFile = "images/square_green.png";
+				else if (color.equals(Color.MAGENTA)) squareFile = "images/square_magenta.png";
+				else if (color.equals(Color.CYAN)) squareFile = "images/square_cyan.png";
+				
+				Image bgImage = ImageIO.read(new File(squareFile));
+			    if (bgImage != null) g.drawImage(bgImage,actualX,actualY, WIDTH, HEIGHT, null);
+			}
+			
+			catch(IOException e){}
+		}
+
+//		// black border (if not empty)
+//		if (!color.equals(Grid.EMPTY)) {
+//			g.setColor(Color.BLACK);
+//			//g.drawRect(actualX, actualY, WIDTH, HEIGHT);
+//		}
 	}
 }
