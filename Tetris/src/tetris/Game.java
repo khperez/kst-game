@@ -22,6 +22,7 @@ public class Game
 		grid = new Grid();
 		this.display = display;
 		piece = randomPiece(); // SERGIO 4/7/16 //
+		// KAT SUCKS
 		isOver = false;
 	}
 
