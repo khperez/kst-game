@@ -21,7 +21,6 @@ public class Game
 	{
 		grid = new Grid();
 		this.display = display;
-		//piece = new LShape(1, Grid.WIDTH / 2 - 1, grid);
 		piece = randomPiece(); // SERGIO 4/7/16 //
 		isOver = false;
 	}

@@ -192,7 +192,7 @@ public class Tetris extends JPanel {
 		});
 		
 		// kp left key
-		btn.getInputMap(IFW).put(KeyStroke.getKeyStroke("KP_EFT"), "key_kp_left");
+		btn.getInputMap(IFW).put(KeyStroke.getKeyStroke("KP_LEFT"), "key_kp_left");
 		btn.getActionMap().put("key_kp_left", new AbstractAction()
 		{
 			private static final long serialVersionUID = 1L;
