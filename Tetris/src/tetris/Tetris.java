@@ -140,7 +140,7 @@ public class Tetris extends JPanel {
 		btn.getActionMap().put("key_up", new AbstractAction()
 		{
 			private static final long serialVersionUID = 1L;
-			public void actionPerformed(ActionEvent e) { if(!game.isGameOver()) game.rotatePiece(); }
+			public void actionPerformed(ActionEvent e) { if(!game.isGameOver()) game.rotatePieceCW(); }
 		});
 		
 		// kp up key
@@ -148,7 +148,7 @@ public class Tetris extends JPanel {
 		btn.getActionMap().put("key_kp_up", new AbstractAction()
 		{
 			private static final long serialVersionUID = 1L;
-			public void actionPerformed(ActionEvent e) { if(!game.isGameOver())game.rotatePiece(); }
+			public void actionPerformed(ActionEvent e) { if(!game.isGameOver())game.rotatePieceCW(); }
 		});
 		
 		// down key
@@ -199,6 +199,30 @@ public class Tetris extends JPanel {
 			public void actionPerformed(ActionEvent e) { if(!game.isGameOver())ec.handleMove(Direction.LEFT); }
 		});
 		
+		// z key
+		btn.getInputMap(IFW).put(KeyStroke.getKeyStroke("Z"), "key_Z");
+		btn.getActionMap().put("key_Z", new AbstractAction()
+		{
+			private static final long serialVersionUID = 1L;
+			public void actionPerformed(ActionEvent e)
+			{
+				if(!game.isGameOver())
+					game.rotatePieceCCW();
+			}
+		});
+		
+		// x key
+		btn.getInputMap(IFW).put(KeyStroke.getKeyStroke("X"), "key_X");
+		btn.getActionMap().put("key_X", new AbstractAction()
+		{
+			private static final long serialVersionUID = 1L;
+			public void actionPerformed(ActionEvent e)
+			{
+				if(!game.isGameOver())
+					game.rotatePieceCW();
+			}
+		});
+
 		// q (quit) key
 		btn.getInputMap(IFW).put(KeyStroke.getKeyStroke("Q"), "key_Q");
 		btn.getActionMap().put("key_Q", new AbstractAction()

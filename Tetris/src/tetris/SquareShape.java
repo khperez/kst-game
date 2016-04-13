@@ -30,7 +30,14 @@ public class SquareShape extends AbstractPiece
 	
 	// Katherine 4/8/16 //
 	@Override
-	public void rotate(){
+	public void rotateCW()
+	{
+		
+	}
+	
+	@Override
+	public void rotateCCW()
+	{
 		
 	}
 }

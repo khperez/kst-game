@@ -22,6 +22,9 @@ public interface Piece
 	/** Returns if this piece can move in the given direction */
 	public boolean canMove(Direction direction);
 
-	/** Rotate the Piece */
-	public void rotate();
+	/** Rotate the piece clockwise*/
+	public void rotateCW();
+	
+	/** Rotate the piece counter-clockwise*/
+	public void rotateCCW();
 }

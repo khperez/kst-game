@@ -101,9 +101,17 @@ public class Game
 	}
 
     /** Rotate the piece */
-	public void rotatePiece()
+	public void rotatePieceCW()
     {
-		if (piece != null) piece.rotate();
+		if (piece != null) piece.rotateCW();
+        updatePiece();
+        grid.checkRows();
+        display.update();
+    }
+	
+	public void rotatePieceCCW()
+    {
+		if (piece != null) piece.rotateCCW();
         updatePiece();
         grid.checkRows();
         display.update();
