@@ -68,7 +68,7 @@ public abstract class AbstractPiece implements Piece
 		
 		int i = 0;
 		
-		if(pivotRow == 0 || grid.isSet(pivotRow, pivotCol + 1) || grid.isSet(pivotRow, pivotCol - 1) )
+		if(pivotRow == 0 || grid.isSet(pivotRow, pivotCol + 1) || grid.isSet(pivotRow, pivotCol - 1))
 			return;
 		
 		while (i < PIECE_COUNT)

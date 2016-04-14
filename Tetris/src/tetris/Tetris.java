@@ -24,6 +24,8 @@ import javax.swing.KeyStroke;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
 
 public class Tetris extends JPanel {
 
@@ -36,6 +38,10 @@ public class Tetris extends JPanel {
 	private Game game;
 	private JFrame f;
 	private EventController ec;
+	
+	public static ScoreCounter point = new ScoreCounter();
+	public static JTextField scoreText;
+	public static String scoreDis = "";
 
 	/** Sets up the parts for the Tetris game, display and user control
 	 * @param f frame to draw the game on
@@ -71,7 +77,7 @@ public class Tetris extends JPanel {
 		game = new Game(this);
 		
 		// generate window
-		f = new JFrame("Tetris");
+		f = new JFrame("KTS-Tetris");
 		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		f.setSize(WINDOWWIDTH, WINDOWHEIGHT);
 		f.setVisible(true);
@@ -94,6 +100,19 @@ public class Tetris extends JPanel {
 		btn_Pause.addActionListener(ec);
 		btn_Pause.setOpaque(false);
 		
+		// score display - TY 4/13/16													
+		JLabel scoreLabel = new JLabel("Score");							
+		scoreLabel.setOpaque(false);										
+		scoreLabel.setFont(new Font("Serif", Font.BOLD, 25));				
+																			
+		scoreText = new JTextField("");										
+		scoreText.setOpaque(false);
+		scoreText.setEditable(false);
+		scoreText.setFont(new Font("Serif", Font.BOLD, 25));
+		scoreText.setBorder(null);
+		scoreText.setText(scoreDis);		
+		
+		
 		// right panel
 		JPanel panel_Right = new JPanel();
 		panel_Right.setPreferredSize(new Dimension(300, WINDOWHEIGHT));
@@ -102,6 +121,8 @@ public class Tetris extends JPanel {
 		
 		panel_Right.add(new EmptyPanel());
 		panel_Right.add(btn_Pause);
+		panel_Right.add(scoreLabel);
+		panel_Right.add(scoreText);
 		
 		attachActions(btn_Pause);
 		

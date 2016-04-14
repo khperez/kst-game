@@ -9,6 +9,7 @@ import java.util.Random;
  * Updates the display whenever the state of the game has changed. */
 public class Game
 {
+	
 	private Grid grid; // the grid that makes up the Tetris board
 	private Tetris display; // the visual for the Tetris game
 	private AbstractPiece piece; // the current piece that is dropping
