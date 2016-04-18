@@ -16,13 +16,21 @@ public abstract class AbstractPiece implements Piece
 			square[i].draw(g);
 	}
 
+	public void drawNext(Graphics g)
+	{
+		for (int i = 0; i < PIECE_COUNT; i++)
+			square[i].drawNext(g);
+	}
+	
 	public void move(Direction direction)
 	{
 		if (canMove(direction))
 			for (int i = 0; i < PIECE_COUNT; i++) square[i].move(direction);
 		
 		else if (direction == Direction.DOWN)	// if we couldn't move, check if it's because we're at the bottom
+		{	
 			ableToMove = false;
+		}
 	}
 
 	public Point[] getLocations()

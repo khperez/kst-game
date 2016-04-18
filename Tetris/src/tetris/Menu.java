@@ -161,7 +161,7 @@ public class Menu extends JPanel
 			public void actionPerformed(ActionEvent e)
 			{
 				// start game, pass active window along
-				f.setVisible(false);
+				f.setVisible(false);				
 				new Tetris();
 			}
 		});

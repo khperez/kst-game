@@ -22,6 +22,10 @@ public class Square {
 	public static final int WIDTH = 20;
 	public static final int HEIGHT = 20;
 
+	//Coordinate of the nextShape box
+	private int coordX = 175;
+	private int coordY = 250;
+
 	/** Creates a square
 	 * @param g the Grid for this Square
 	 * @param row the row of this Square in the Grid
@@ -42,6 +46,7 @@ public class Square {
 		this.col = col;
 		color = c;
 		ableToMove = mobile;
+
 	}
 
 	/**
@@ -141,9 +146,9 @@ public class Square {
 	 */
 	public void draw(Graphics g) {
 
-		// calculate the upper left (x,y) coordinate of this square
 		int actualX = Grid.LEFT + col * WIDTH;
 		int actualY = Grid.TOP + row * HEIGHT;
+		
 		g.setColor(color);
 		
 		String squareFile = null;
@@ -166,7 +171,10 @@ public class Square {
 				else if (color.equals(Color.CYAN)) squareFile = "images/square_cyan.png";
 				
 				Image bgImage = ImageIO.read(new File(squareFile));
-			    if (bgImage != null) g.drawImage(bgImage,actualX,actualY, WIDTH, HEIGHT, null);
+			    if (bgImage != null)
+			    {
+			    	g.drawImage(bgImage,actualX,actualY, WIDTH, HEIGHT, null);
+			    }
 			}
 			
 			catch(IOException e){}
@@ -178,4 +186,87 @@ public class Square {
 //			//g.drawRect(actualX, actualY, WIDTH, HEIGHT);
 //		}
 	}
+	
+	public void drawNext(Graphics g)
+	{
+		String squareFile = null;
+		
+		if (color.equals(Color.RED)) squareFile = "images/square_red.png";
+		else if (color.equals(Color.BLUE)) squareFile = "images/square_blue.png";
+		else if (color.equals(Color.ORANGE)) squareFile = "images/square_orange.png";
+		else if (color.equals(Color.YELLOW)) squareFile = "images/square_yellow.png";
+		else if (color.equals(Color.GREEN)) squareFile = "images/square_green.png";
+		else if (color.equals(Color.MAGENTA)) squareFile = "images/square_magenta.png";
+		else if (color.equals(Color.CYAN)) squareFile = "images/square_cyan.png";
+		
+		Image bgImage;
+		try {
+			bgImage = ImageIO.read(new File(squareFile));
+			
+			if(Game.nextShape=="ZShape")
+	    	{
+	    		g.drawImage(bgImage,coordX,coordY, WIDTH, HEIGHT, null);
+	    		g.drawImage(bgImage,coordX+20,coordY, WIDTH, HEIGHT, null);
+	    		g.drawImage(bgImage,coordX+20,coordY+20, WIDTH, HEIGHT, null);
+	    		g.drawImage(bgImage,coordX+40,coordY+20, WIDTH, HEIGHT, null);
+	    	}
+	    	// J Shape
+	    	else if(Game.nextShape=="JShape")
+	    	{
+	    		g.drawImage(bgImage,coordX+20,coordY, WIDTH, HEIGHT, null);
+	    		g.drawImage(bgImage,coordX+20,coordY+20, WIDTH, HEIGHT, null);
+	    		g.drawImage(bgImage,coordX,coordY+40, WIDTH, HEIGHT, null);
+	    		g.drawImage(bgImage,coordX+20,coordY+40, WIDTH, HEIGHT, null);
+	    	}
+	    	// L Shape
+	    	else if(Game.nextShape=="LShape")
+	    	{
+	    		g.drawImage(bgImage,coordX,coordY, WIDTH, HEIGHT, null);
+	    		g.drawImage(bgImage,coordX,coordY+20, WIDTH, HEIGHT, null);
+	    		g.drawImage(bgImage,coordX,coordY+40, WIDTH, HEIGHT, null);
+	    		g.drawImage(bgImage,coordX+20,coordY+40, WIDTH, HEIGHT, null);
+	    	}
+	    	// Square Shape
+	    	else if(Game.nextShape=="SquareShape")					
+	    	{
+	    		g.drawImage(bgImage,coordX,coordY, WIDTH, HEIGHT, null);
+	    		g.drawImage(bgImage,coordX+20,coordY, WIDTH, HEIGHT, null);
+	    		g.drawImage(bgImage,coordX,coordY+20, WIDTH, HEIGHT, null);
+	    		g.drawImage(bgImage,coordX+20,coordY+20, WIDTH, HEIGHT, null);
+	    	}
+	    	// S Shape
+	    	else if(Game.nextShape=="SShape")					
+	    	{
+	    		g.drawImage(bgImage,coordX+20,coordY, WIDTH, HEIGHT, null);
+	    		g.drawImage(bgImage,coordX+40,coordY, WIDTH, HEIGHT, null);
+	    		g.drawImage(bgImage,coordX,coordY+20, WIDTH, HEIGHT, null);
+	    		g.drawImage(bgImage,coordX+20,coordY+20, WIDTH, HEIGHT, null);
+	    	}
+	    	// T Shape
+	    	else if(Game.nextShape=="TShape")					
+	    	{
+	    		g.drawImage(bgImage,coordX,coordY, WIDTH, HEIGHT, null);
+	    		g.drawImage(bgImage,coordX+20,coordY, WIDTH, HEIGHT, null);
+	    		g.drawImage(bgImage,coordX+40,coordY, WIDTH, HEIGHT, null);
+	    		g.drawImage(bgImage,coordX+20,coordY+20, WIDTH, HEIGHT, null);
+	    	}
+	    	// I Shape
+	    	else if(Game.nextShape=="IShape")					
+	    	{
+	    		g.drawImage(bgImage,coordX,coordY+20, WIDTH, HEIGHT, null);
+	    		g.drawImage(bgImage,coordX+20,coordY+20, WIDTH, HEIGHT, null);
+	    		g.drawImage(bgImage,coordX+40,coordY+20, WIDTH, HEIGHT, null);
+	    		g.drawImage(bgImage,coordX+60,coordY+20, WIDTH, HEIGHT, null);
+	    	}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	   	    
+	    
+	    //Drawing next piece - TY - 4/16/16
+	    // Z Shape
+    	
+	}
+
 }

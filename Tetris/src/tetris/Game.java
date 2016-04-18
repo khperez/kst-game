@@ -15,14 +15,22 @@ public class Game
 	private AbstractPiece piece; // the current piece that is dropping
 	private boolean isOver; // has the game finished?
 	private static boolean isPaused; // is the game paused?
+	
+	public static String nextShape;
+	
+	public static AbstractPiece nextPiece;
 
+		
 	/** Creates a Tetris game
 	 * @param Tetris the display */
 	public Game(Tetris display)
 	{
 		grid = new Grid();
 		this.display = display;
-		piece = randomPiece(); // SERGIO 4/7/16 //
+		randomPiece();					//TY 4/18/16	- Generate random piece and assign it to current piece
+		piece = nextPiece;
+		randomPiece();					//TY - Generate next piece
+		//piece = randomPiece(); // SERGIO 4/7/16	
 		// KAT SUCKS
 		isOver = false;
 	}
@@ -33,10 +41,10 @@ public class Game
 	{
 		grid.draw(g);
 		if (piece != null) {
-			piece.draw(g);
+			piece.draw(g);	
 		}
 	}
-
+	
 	/** Moves the piece in the given direction
 	 * @param direction the direction to move */
 	public void movePiece(Direction direction)
@@ -53,7 +61,7 @@ public class Game
 		// game is over if the piece occupies the same space as some non-empty
 		// part of the grid. Usually happens when a new piece is made
 		if (piece == null) {
-			return false;
+			return false;			
 		}
 
 		// check if game is already over
@@ -84,11 +92,14 @@ public class Game
 
 	/** Updates the piece */
 	private void updatePiece()
-	{
+	{		
 		if (piece == null) {
-			piece = randomPiece(); // SERGIO 4/7/16 //
+			//piece = randomPiece(); // SERGIO 4/7/16 
+			piece = nextPiece;					// TY 4/18/16  -  Assign next piece to current
+			randomPiece();						//			   -  Generate next piece
 		}
-
+					
+		
 		// set Grid positions corresponding to frozen piece
 		// and then release the piece
 		else if (!piece.canMove(Direction.DOWN)) {
@@ -99,6 +110,8 @@ public class Game
 			}
 			piece = null;
 		}
+		
+		
 	}
 
     /** Rotate the piece */
@@ -120,7 +133,7 @@ public class Game
 	
 	// SERGIO 4/7/16 //
 	/** Returns a random piece */
-	public AbstractPiece randomPiece()
+	public void randomPiece()
 	{
 		AbstractPiece p;
 		Random rand = new Random();
@@ -140,17 +153,15 @@ public class Game
 		
 		switch(rand.nextInt(7))
 		{
-			case 0: p = new LShape(1, center, grid); break;
-			case 1: p = new ZShape(1, center, grid); break;
-			case 2: p = new SquareShape(1, center, grid); break;
-			case 3: p = new JShape(1, center, grid); break;
-			case 4:	p = new IShape(1, center, grid); break;
-			case 5: p = new TShape(1, center, grid); break;
-			case 6: p = new SShape(1, center, grid); break;
-			default: p = new LShape(1, center, grid); break;
-		}
-		
-		return p;
-	}
-	// SERGIO 4/7/16 //
+			case 0: p = new LShape(1, center, grid); nextShape="LShape"; break;
+			case 1: p = new ZShape(1, center, grid); nextShape="ZShape"; break;
+			case 2: p = new SquareShape(1, center, grid); nextShape="SquareShape"; break;
+			case 3: p = new JShape(1, center, grid); nextShape="JShape"; break;
+			case 4:	p = new IShape(1, center, grid); nextShape="IShape"; break;
+			case 5: p = new TShape(1, center, grid); nextShape="TShape"; break;
+			case 6: p = new SShape(1, center, grid); nextShape="SShape"; break;
+			default: p = new LShape(1, center, grid); nextShape="LShape"; break;
+		}		
+		nextPiece = p;
+	}	
 }

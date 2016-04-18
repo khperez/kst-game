@@ -124,10 +124,9 @@ public class Grid
                 StringBuilder temp = new StringBuilder();
                 temp.append(Tetris.point.getScore());
                 Tetris.scoreDis = temp.toString();
-                Tetris.scoreText.setText(Tetris.scoreDis);
-                
-                
+                Tetris.scoreText.setText(Tetris.scoreDis);                
             }
+ 
         } 
 	}
 

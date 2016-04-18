@@ -43,6 +43,11 @@ public class Tetris extends JPanel {
 	public static JTextField scoreText;
 	public static String scoreDis = "";
 
+	
+	public static int rectWidth = 200;
+	public static int rectHeight = 150;
+	
+
 	/** Sets up the parts for the Tetris game, display and user control
 	 * @param f frame to draw the game on
 	 */
@@ -78,7 +83,7 @@ public class Tetris extends JPanel {
 		
 		// generate window
 		f = new JFrame("KTS-Tetris");
-		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setSize(WINDOWWIDTH, WINDOWHEIGHT);
 		f.setVisible(true);
 		f.setLayout(new BorderLayout());
@@ -101,7 +106,7 @@ public class Tetris extends JPanel {
 		btn_Pause.setOpaque(false);
 		
 		// score display - TY 4/13/16													
-		JLabel scoreLabel = new JLabel("Score");							
+		JLabel scoreLabel = new JLabel("Score: ");							
 		scoreLabel.setOpaque(false);										
 		scoreLabel.setFont(new Font("Serif", Font.BOLD, 25));				
 																			
@@ -110,7 +115,11 @@ public class Tetris extends JPanel {
 		scoreText.setEditable(false);
 		scoreText.setFont(new Font("Serif", Font.BOLD, 25));
 		scoreText.setBorder(null);
-		scoreText.setText(scoreDis);		
+		scoreText.setText(scoreDis);	
+		
+		//	display next shape
+		
+		
 		
 		
 		// right panel
@@ -136,14 +145,21 @@ public class Tetris extends JPanel {
 	{
 		repaint();
 	}
-
+	
 	/** Paint the current state of the game
 	 */
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-	    
 		game.draw(g);
+		
+		
+		//TY - 4/16/16
+		//DRAW BOX FOR UPCOMING SHAPE
+		g.setColor(Color.BLACK);			//without this line - BOX's border color won't changes with shapes' color
+		g.drawRect((WINDOWWIDTH - 1100), (WINDOWHEIGHT - 800), rectWidth, rectHeight);
+		
+		Game.nextPiece.drawNext(g);		// Draw next shape in the box
 		
 		if (game.isGameOver()) {
 			g.setFont(new Font("Palatino", Font.BOLD, 40));
