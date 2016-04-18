@@ -35,13 +35,10 @@ public class Tetris extends JPanel {
 	public static int WINDOWHEIGHT = 1000;
 	public static int TETRISWIDTH = 600;
 	
-	public static ScoreCounter point = new ScoreCounter();
-//	public static JTextField scoreText;
-//	public static String scoreDis = "";
-	
 	private Game game;
 	private JFrame f;
 	private EventController ec;
+	public static Button btn_score;
 
 	/** Sets up the parts for the Tetris game, display and user control
 	 * @param f frame to draw the game on
@@ -153,11 +150,20 @@ public class Tetris extends JPanel {
 		
 		JLabel lbl_un = new JLabel("UP NEXT", JLabel.CENTER);
 		lbl_un.setFont(GameFont.fontWithSize(26f));
-		lbl_un.setForeground(Color.WHITE);
+		lbl_un.setForeground(Color.WHITE);		
+		
+		// score label/button generator
+		btn_score = new Button("0", GameFont.font, 40f, Color.WHITE, Color.WHITE);
+		btn_score.setFocusable(false);
+		
+		ImageBGPanel layoutScore = new ImageBGPanel("images/menu_btn.png");
+		layoutScore.setLayout(new GridLayout(1,1));
+		layoutScore.add(btn_score);
 		
 		// right panel components
 		panel_Right.add(new EmptyPanel());
 		panel_Right.add(lbl_score);
+		panel_Right.add(layoutScore);
 		panel_Right.add(new EmptyPanel());
 		panel_Right.add(lbl_un);
 		

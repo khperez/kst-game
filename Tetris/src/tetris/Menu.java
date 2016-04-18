@@ -226,6 +226,8 @@ public class Menu extends JPanel
 	public static void main(String[] args)
 	{	
 		new GameFont("resources/ARCADEPI.TTF");
+		new ScoreCounter();
+		
 		new Menu();
 	}
 }

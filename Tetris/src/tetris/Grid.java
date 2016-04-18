@@ -119,12 +119,8 @@ public class Grid
             {
         		removeRow(row);
         		
-        		//UPDATE SCORE - TY - 4/13/16
-//                Tetris.point.addPoint();
-//                StringBuilder temp = new StringBuilder();
-//                temp.append(Tetris.point.getScore());
-//                Tetris.scoreDis = temp.toString();
-//                Tetris.scoreText.setText(Tetris.scoreDis);     
+        		ScoreCounter.increaseScore(1);
+        		Tetris.btn_score.setText(ScoreCounter.getScoreString());
             }
         } 
 	}
