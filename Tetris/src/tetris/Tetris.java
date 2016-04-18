@@ -143,11 +143,17 @@ public class Tetris extends JPanel {
 		panel_Left.add(layoutMenu);
 		
 		// create group labels
+		JLabel lbl_score = new JLabel("SCORE", JLabel.CENTER);
+		lbl_score.setFont(GameFont.fontWithSize(26f));
+		lbl_score.setForeground(Color.WHITE);
+		
 		JLabel lbl_un = new JLabel("UP NEXT", JLabel.CENTER);
 		lbl_un.setFont(GameFont.fontWithSize(26f));
 		lbl_un.setForeground(Color.WHITE);
 		
 		// right panel components
+		panel_Right.add(new EmptyPanel());
+		panel_Right.add(lbl_score);
 		panel_Right.add(new EmptyPanel());
 		panel_Right.add(lbl_un);
 		
