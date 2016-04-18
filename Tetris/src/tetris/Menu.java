@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.imageio.*;
 
@@ -20,14 +21,11 @@ public class Menu extends JPanel
 
 	public static Difficulty difficulty = Difficulty.NORMAL;
 	public static Size boardSize = Size.MEDIUM;
-	
-	private Image bgImage = null;
 
 	public Menu()
 	{
 		// frame
 		JFrame f = new JFrame("TETRIS");
-		f.add(this);
 		
 		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		f.setSize(Tetris.WINDOWWIDTH, Tetris.WINDOWHEIGHT);
@@ -37,149 +35,179 @@ public class Menu extends JPanel
 		setBackground(Color.BLACK);
 		setLayout(new GridLayout(12,1));
 
-		// panel components
-		MenuButton lvl_b = new MenuButton("images/btn_beginner", ".png");
-		MenuButton lvl_n = new MenuButton("images/btn_normal", ".png");
-		MenuButton lvl_a = new MenuButton("images/btn_advanced", ".png");
-		MenuButton lvl_l = new MenuButton("images/btn_legend", ".png");
+		// generate buttons
+		float btnFontSize = 23f;
+		Color btnTextColor = Color.WHITE;
 		
-		MenuButton size_s = new MenuButton("images/btn_small", ".png");
-		MenuButton size_m = new MenuButton("images/btn_medium", ".png");
-		MenuButton size_l = new MenuButton("images/btn_large", ".png");
+		Button btn_lvlB = new Button("BEGINNER", GameFont.font, btnFontSize, Color.YELLOW, btnTextColor);
+		Button btn_lvlN = new Button("NORMAL", GameFont.font, btnFontSize, Color.GREEN, btnTextColor);
+		Button btn_lvlA = new Button("ADVANCED", GameFont.font, btnFontSize, Color.ORANGE, btnTextColor);
+		Button btn_lvlL = new Button("LEGEND", GameFont.font, btnFontSize, Color.RED, btnTextColor);
 		
-		lvl_n.setSelected(true);;
-		size_m.setSelected(true);
+		Button btn_sizeS = new Button("SMALL", GameFont.font, btnFontSize, Color.CYAN, btnTextColor);
+		Button btn_sizeM = new Button("MEDIUM", GameFont.font, btnFontSize, Color.BLUE, btnTextColor);
+		Button btn_sizeL = new Button("LARGE", GameFont.font, btnFontSize, Color.MAGENTA, btnTextColor);
 		
-		lvl_b.addActionListener(new ActionListener()
-			{
-				public void actionPerformed(ActionEvent e)
-				{
-						difficulty = Difficulty.BEGINNER;
-						lvl_b.setSelected(true);
-						lvl_n.setSelected(false);
-						lvl_a.setSelected(false);
-						lvl_l.setSelected(false);
-				}	
-			});
-	
-		lvl_n.addActionListener(new ActionListener()
-			{
-				public void actionPerformed(ActionEvent e)
-				{
-						difficulty = Difficulty.NORMAL;
-						lvl_b.setSelected(false);
-						lvl_n.setSelected(true);
-						lvl_a.setSelected(false);
-						lvl_l.setSelected(false);
-				}	
-			});
-	
-		lvl_a.addActionListener(new ActionListener()
-			{
-				public void actionPerformed(ActionEvent e)
-				{
-						difficulty = Difficulty.ADVANCED;
-						lvl_b.setSelected(false);
-						lvl_n.setSelected(false);
-						lvl_a.setSelected(true);
-						lvl_l.setSelected(false);
-				}	
-			});
-	
-		lvl_l.addActionListener(new ActionListener()
-			{
-				public void actionPerformed(ActionEvent e)
-				{
-						difficulty = Difficulty.LEGEND;
-						lvl_b.setSelected(false);
-						lvl_n.setSelected(false);
-						lvl_a.setSelected(false);
-						lvl_l.setSelected(true);
-				}	
-			});
+		Button btn_play = new Button("PLAY", GameFont.font, btnFontSize, Color.GREEN, btnTextColor);
 		
-		size_s.addActionListener(new ActionListener()
+		// set default selected
+		btn_lvlN.setSelected(true);
+		btn_sizeM.setSelected(true);
+		
+		// action listener for all button events
+		ActionListener btnListen = new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				boardSize = Size.SMALL;
-				size_s.setSelected(true);
-				size_m.setSelected(false);
-				size_l.setSelected(false);
+				String src = e.getActionCommand();
+				
+				if (src.equals("PLAY"))
+				{
+					// start game, pass active window along
+					f.setVisible(false);
+					new Tetris();
+				}
+				
+				else if (src.equals("BEGINNER"))
+				{
+					difficulty = Difficulty.BEGINNER;
+					btn_lvlB.setSelected(true);
+					btn_lvlN.setSelected(false);
+					btn_lvlA.setSelected(false);
+					btn_lvlL.setSelected(false);
+				}
+				
+				else if (src.equals("NORMAL"))
+				{
+					difficulty = Difficulty.NORMAL;
+					btn_lvlB.setSelected(false);
+					btn_lvlN.setSelected(true);
+					btn_lvlA.setSelected(false);
+					btn_lvlL.setSelected(false);
+				}
+				
+				else if (src.equals("ADVANCED"))
+				{
+					difficulty = Difficulty.ADVANCED;
+					btn_lvlB.setSelected(false);
+					btn_lvlN.setSelected(false);
+					btn_lvlA.setSelected(true);
+					btn_lvlL.setSelected(false);
+				}
+				
+				else if (src.equals("LEGEND"))
+				{
+					difficulty = Difficulty.LEGEND;
+					btn_lvlB.setSelected(false);
+					btn_lvlN.setSelected(false);
+					btn_lvlA.setSelected(false);
+					btn_lvlL.setSelected(true);
+				}
+				
+				else if (src.equals("SMALL"))
+				{
+					boardSize = Size.SMALL;
+					btn_sizeS.setSelected(true);
+					btn_sizeM.setSelected(false);
+					btn_sizeL.setSelected(false);
+				}
+				
+				else if (src.equals("MEDIUM"))
+				{
+					boardSize = Size.MEDIUM;
+					btn_sizeS.setSelected(false);
+					btn_sizeM.setSelected(true);
+					btn_sizeL.setSelected(false);
+				}
+				
+				else if (src.equals("LARGE"))
+				{
+					boardSize = Size.LARGE;
+					btn_sizeS.setSelected(false);
+					btn_sizeM.setSelected(false);
+					btn_sizeL.setSelected(true);
+				}
 			}
-		});
+		};
 		
-		size_m.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				boardSize = Size.MEDIUM;
-				size_s.setSelected(false);
-				size_m.setSelected(true);
-				size_l.setSelected(false);
-			}
-		});
-		
-		size_l.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				boardSize = Size.LARGE;
-				size_s.setSelected(false);
-				size_m.setSelected(false);
-				size_l.setSelected(true);
-			}
-		});
-		
-		JPanel layoutDiff = new JPanel();
+		// associate action listener to buttons
+		btn_lvlB.addActionListener(btnListen);
+		btn_lvlN.addActionListener(btnListen);
+		btn_lvlA.addActionListener(btnListen);
+		btn_lvlL.addActionListener(btnListen);
+		btn_sizeS.addActionListener(btnListen);
+		btn_sizeM.addActionListener(btnListen);
+		btn_sizeL.addActionListener(btnListen);
+		btn_play.addActionListener(btnListen);
+	
+		// group difficulty buttons
+		ImageBGPanel layoutDiff = new ImageBGPanel("images/menu_bar.png");
 		layoutDiff.setLayout(new GridLayout(1, 6));
-		layoutDiff.setOpaque(false);
 		
 		layoutDiff.add(new EmptyPanel());
-		layoutDiff.add(lvl_b);
-		layoutDiff.add(lvl_n);
-		layoutDiff.add(lvl_a);
-		layoutDiff.add(lvl_l);
+		layoutDiff.add(btn_lvlB);
+		layoutDiff.add(btn_lvlN);
+		layoutDiff.add(btn_lvlA);
+		layoutDiff.add(btn_lvlL);
 		layoutDiff.add(new EmptyPanel());
 		
-		JPanel layoutSize = new JPanel();
+		// group board size buttons
+		ImageBGPanel layoutSize = new ImageBGPanel("images/menu_bar.png");
 		layoutSize.setLayout(new GridLayout(1,7));
-		layoutSize.setOpaque(false);
 		
 		layoutSize.add(new EmptyPanel());
 		layoutSize.add(new EmptyPanel());
-		layoutSize.add(size_s);
-		layoutSize.add(size_m);
-		layoutSize.add(size_l);
+		layoutSize.add(btn_sizeS);
+		layoutSize.add(btn_sizeM);
+		layoutSize.add(btn_sizeL);
 		layoutSize.add(new EmptyPanel());
 		layoutSize.add(new EmptyPanel());
 		
-		MenuButton btnPlay = new MenuButton("images/btn_play", ".png");
+		// group play button
+		ImageBGPanel layoutPlay = new ImageBGPanel("images/menu_btn.png");
+		layoutPlay.setLayout(new GridLayout(1,1));
 		
-		btnPlay.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				// start game, pass active window along
-				f.setVisible(false);
-				new Tetris();
-			}
-		});
+		layoutPlay.add(btn_play);
 		
+		// create group labels
+		JLabel lbl_diff = new JLabel("DIFFICULTY", JLabel.CENTER);
+		lbl_diff.setFont(GameFont.fontWithSize(26f));
+		lbl_diff.setVerticalAlignment(JLabel.BOTTOM);
+		lbl_diff.setForeground(Color.BLACK);
+		
+		JLabel lbl_size = new JLabel("BOARD SIZE", JLabel.CENTER);
+		lbl_size.setFont(GameFont.fontWithSize(26f));
+		lbl_size.setVerticalAlignment(JLabel.BOTTOM);
+		lbl_size.setForeground(Color.BLACK);
+		
+		// setup all panels on main panel, add play button
 		add(new EmptyPanel());
 		add(new EmptyPanel());
 		add(new EmptyPanel());
 		add(new EmptyPanel());
 		add(new EmptyPanel());
-		add(new EmptyPanel());
+		add(lbl_diff);
 		add(layoutDiff);
-		add(new EmptyPanel());
+		add(lbl_size);
 		add(layoutSize);
 		add(new EmptyPanel());
-		add(btnPlay);
+		add(layoutPlay);
 		
-		setVisible(true);
+		// add main panel to frame, show window
+		f.add(this);
 		f.setVisible(true);
+		
+		// working wav code
+//		try
+//	    {
+//	        Clip clip = AudioSystem.getClip();
+//	        clip.open(AudioSystem.getAudioInputStream(new File("resources/Tetris.mp3")));
+//	        clip.start();
+//	    }
+//	    catch (Exception exc)
+//	    {
+//	        exc.printStackTrace(System.out);
+//	    }
 	}
 
 	public void paintComponent(Graphics g)
@@ -188,22 +216,16 @@ public class Menu extends JPanel
 	    
 	    try
 	    {
-		    bgImage = ImageIO.read(new File("images/menu_bg.png"));
-		    
-		    if (bgImage != null)
-		    {
-		        g.drawImage(bgImage,0,0,this);
-		    }
+		    Image bgImage = ImageIO.read(new File("images/menu_bg.png"));
+		    if (bgImage != null) g.drawImage(bgImage,0,0,this);
 	    }
 	    
-	    catch(IOException e)
-	    {
-	    	
-	    }
+	    catch(IOException e) {}
 	}
 	
 	public static void main(String[] args)
 	{	
+		new GameFont("resources/ARCADEPI.TTF");
 		new Menu();
 	}
 }

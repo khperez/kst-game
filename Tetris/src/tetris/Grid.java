@@ -52,7 +52,7 @@ public class Grid
 		
 		// evaluate top and left values to draw board in center.
 		TOP = ((Tetris.WINDOWHEIGHT / 2) - ((HEIGHT / 2) * Square.HEIGHT));
-		LEFT = ((Tetris.WINDOWWIDTH / 2) - ((WIDTH / 2) * Square.WIDTH));
+		LEFT = ((Tetris.TETRISWIDTH / 2) - ((WIDTH / 2) * Square.WIDTH));
 		
 		board = new Square[HEIGHT][WIDTH];
 

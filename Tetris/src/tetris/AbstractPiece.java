@@ -99,7 +99,6 @@ public abstract class AbstractPiece implements Piece
 		
 	public void rotateCCW()
 	{
-		
 		int pivotRow, pivotCol, curRow, curCol, nextRow, nextCol;
 		
 		pivotRow = square[1].getRow();

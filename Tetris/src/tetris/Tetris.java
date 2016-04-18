@@ -8,17 +8,18 @@ package tetris;
  */
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.AbstractAction;
@@ -32,6 +33,7 @@ public class Tetris extends JPanel {
 	
 	public static int WINDOWWIDTH = 1200;
 	public static int WINDOWHEIGHT = 1000;
+	public static int TETRISWIDTH = 600;
 	
 	private Game game;
 	private JFrame f;
@@ -67,6 +69,18 @@ public class Tetris extends JPanel {
 			}
 		}
 		
+		// left panel
+		JPanel panel_Left = new JPanel();
+		panel_Left.setPreferredSize(new Dimension(300, WINDOWHEIGHT));
+		panel_Left.setOpaque(false);		
+		panel_Left.setLayout(new GridLayout(12,1));
+		
+		// right panel
+		JPanel panel_Right = new JPanel();
+		panel_Right.setPreferredSize(new Dimension(300, WINDOWHEIGHT));
+		panel_Right.setOpaque(false);		
+		panel_Right.setLayout(new GridLayout(12,1));
+		
 		// create game
 		game = new Game(this);
 		
@@ -77,6 +91,7 @@ public class Tetris extends JPanel {
 		f.setVisible(true);
 		f.setLayout(new BorderLayout());
 		f.setResizable(false);
+		
 
 		// generate background panel
 		BGPanel bg = new BGPanel();
@@ -90,22 +105,56 @@ public class Tetris extends JPanel {
 		setOpaque(false);
 		
 		// pause button
-		JButton btn_Pause = new JButton("Pause");
-		btn_Pause.addActionListener(ec);
-		btn_Pause.setOpaque(false);
+		Button btn_Pause = new Button("PAUSE", GameFont.font, 26f, Color.RED, Color.WHITE);
+		btn_Pause.addActionListener(new ActionListener()
+				{
+					public void actionPerformed(ActionEvent e)
+					{
+						if (game.isPaused())
+						{
+							game.setPausedState(false);
+							btn_Pause.setSelected(false);
+							btn_Pause.setText("PAUSE");
+						}
+						else
+						{
+							game.setPausedState(true);
+							btn_Pause.setSelected(true);
+							btn_Pause.setText("RESUME");
+						}
+					}
+				});
 		
-		// right panel
-		JPanel panel_Right = new JPanel();
-		panel_Right.setPreferredSize(new Dimension(300, WINDOWHEIGHT));
-		panel_Right.setOpaque(false);		
-		panel_Right.setLayout(new GridLayout(10,1));
+		// group pause button
+		ImageBGPanel layoutPause = new ImageBGPanel("images/menu_btn.png");
+		layoutPause.setLayout(new GridLayout(1,1));
+		layoutPause.add(btn_Pause);
 		
+		// menu button
+		Button btn_Menu = new Button("MENU", GameFont.font, 26f, Color.WHITE, Color.WHITE);
+		
+		ImageBGPanel layoutMenu = new ImageBGPanel("images/menu_btn.png");
+		layoutMenu.setLayout(new GridLayout(1,1));
+		layoutMenu.add(btn_Menu);
+		
+		// left panel components
+		panel_Left.add(new EmptyPanel());
+		panel_Left.add(layoutPause);
+		panel_Left.add(layoutMenu);
+		
+		// create group labels
+		JLabel lbl_un = new JLabel("UP NEXT", JLabel.CENTER);
+		lbl_un.setFont(GameFont.fontWithSize(26f));
+		lbl_un.setForeground(Color.WHITE);
+		
+		// right panel components
 		panel_Right.add(new EmptyPanel());
-		panel_Right.add(btn_Pause);
+		panel_Right.add(lbl_un);
 		
 		attachActions(btn_Pause);
 		
 		bg.add(this, BorderLayout.CENTER);
+		bg.add(panel_Left, BorderLayout.WEST);
 		bg.add(panel_Right, BorderLayout.EAST);
 	}
 
@@ -125,9 +174,9 @@ public class Tetris extends JPanel {
 		game.draw(g);
 		
 		if (game.isGameOver()) {
-			g.setFont(new Font("Palatino", Font.BOLD, 40));
-			g.setColor(Color.WHITE);
-			g.drawString("GAME OVER YOU SUCK", (WINDOWWIDTH/2)-250, 60);
+			g.setFont(GameFont.fontWithSize(30f));
+			g.setColor(Color.RED);
+			g.drawString("GAME OVER!", (WINDOWWIDTH/2)-115, 60);
 		}
 	}
 	
@@ -140,7 +189,7 @@ public class Tetris extends JPanel {
 		btn.getActionMap().put("key_up", new AbstractAction()
 		{
 			private static final long serialVersionUID = 1L;
-			public void actionPerformed(ActionEvent e) { if(!game.isGameOver()) game.rotatePieceCW(); }
+			public void actionPerformed(ActionEvent e) { if ((!game.isGameOver()) && (!game.isPaused())) game.rotatePieceCW(); }
 		});
 		
 		// kp up key
@@ -148,7 +197,7 @@ public class Tetris extends JPanel {
 		btn.getActionMap().put("key_kp_up", new AbstractAction()
 		{
 			private static final long serialVersionUID = 1L;
-			public void actionPerformed(ActionEvent e) { if(!game.isGameOver())game.rotatePieceCW(); }
+			public void actionPerformed(ActionEvent e) { if ((!game.isGameOver()) && (!game.isPaused())) game.rotatePieceCW(); }
 		});
 		
 		// down key
@@ -156,7 +205,7 @@ public class Tetris extends JPanel {
 		btn.getActionMap().put("key_down", new AbstractAction()
 		{
 			private static final long serialVersionUID = 1L;
-			public void actionPerformed(ActionEvent e) { if(!game.isGameOver())ec.handleMove(Direction.DOWN); }
+			public void actionPerformed(ActionEvent e) { if ((!game.isGameOver()) && (!game.isPaused())) ec.handleMove(Direction.DOWN); }
 		});
 		
 		// kp down key
@@ -164,7 +213,7 @@ public class Tetris extends JPanel {
 		btn.getActionMap().put("key_kp_down", new AbstractAction()
 		{
 			private static final long serialVersionUID = 1L;
-			public void actionPerformed(ActionEvent e) { if(!game.isGameOver())ec.handleMove(Direction.DOWN);  }
+			public void actionPerformed(ActionEvent e) { if ((!game.isGameOver()) && (!game.isPaused())) ec.handleMove(Direction.DOWN);  }
 		});
 		
 		// right key
@@ -172,7 +221,7 @@ public class Tetris extends JPanel {
 		btn.getActionMap().put("key_right", new AbstractAction()
 		{
 			private static final long serialVersionUID = 1L;
-			public void actionPerformed(ActionEvent e) { if(!game.isGameOver())ec.handleMove(Direction.RIGHT); }
+			public void actionPerformed(ActionEvent e) { if ((!game.isGameOver()) && (!game.isPaused())) ec.handleMove(Direction.RIGHT); }
 		});
 		
 		// kp right key
@@ -180,7 +229,7 @@ public class Tetris extends JPanel {
 		btn.getActionMap().put("key_kp_right", new AbstractAction()
 		{
 			private static final long serialVersionUID = 1L;
-			public void actionPerformed(ActionEvent e) { if(!game.isGameOver())ec.handleMove(Direction.RIGHT); }
+			public void actionPerformed(ActionEvent e) { if ((!game.isGameOver()) && (!game.isPaused())) ec.handleMove(Direction.RIGHT); }
 		});
 		
 		// left key
@@ -188,7 +237,7 @@ public class Tetris extends JPanel {
 		btn.getActionMap().put("key_left", new AbstractAction()
 		{
 			private static final long serialVersionUID = 1L;
-			public void actionPerformed(ActionEvent e) { if(!game.isGameOver())ec.handleMove(Direction.LEFT); }
+			public void actionPerformed(ActionEvent e) { if ((!game.isGameOver()) && (!game.isPaused())) ec.handleMove(Direction.LEFT); }
 		});
 		
 		// kp left key
@@ -196,7 +245,7 @@ public class Tetris extends JPanel {
 		btn.getActionMap().put("key_kp_left", new AbstractAction()
 		{
 			private static final long serialVersionUID = 1L;
-			public void actionPerformed(ActionEvent e) { if(!game.isGameOver())ec.handleMove(Direction.LEFT); }
+			public void actionPerformed(ActionEvent e) { if ((!game.isGameOver()) && (!game.isPaused())) ec.handleMove(Direction.LEFT); }
 		});
 		
 		// z key
@@ -204,11 +253,7 @@ public class Tetris extends JPanel {
 		btn.getActionMap().put("key_Z", new AbstractAction()
 		{
 			private static final long serialVersionUID = 1L;
-			public void actionPerformed(ActionEvent e)
-			{
-				if(!game.isGameOver())
-					game.rotatePieceCCW();
-			}
+			public void actionPerformed(ActionEvent e) { if ((!game.isGameOver()) && (!game.isPaused())) game.rotatePieceCCW(); }
 		});
 		
 		// x key
@@ -216,11 +261,7 @@ public class Tetris extends JPanel {
 		btn.getActionMap().put("key_X", new AbstractAction()
 		{
 			private static final long serialVersionUID = 1L;
-			public void actionPerformed(ActionEvent e)
-			{
-				if(!game.isGameOver())
-					game.rotatePieceCW();
-			}
+			public void actionPerformed(ActionEvent e) { if ((!game.isGameOver()) && (!game.isPaused())) game.rotatePieceCW(); }
 		});
 
 		// q (quit) key

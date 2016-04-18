@@ -48,16 +48,18 @@ public class EventController implements ActionListener
 	/** Updates the game periodically based on a timer event */
 	public void actionPerformed(ActionEvent e)
 	{
-		if ("Pause".equals(e.getActionCommand()))
-		{
-			if(game.isPaused()) game.setPausedState(false);
-			else game.setPausedState(true);
-		}
-		
-		else
-		{
+//		String src = e.getActionCommand();
+//		
+//		if ("PAUSE".equals(src))
+//		{
+//			if (game.isPaused()) game.setPausedState(false);
+//			else game.setPausedState(true);
+//		}
+//		
+//		else
+//		{
 			if(!(game.isPaused())) handleMove(Direction.DOWN);
-		}
+//		}
 	}
 
 	/**
