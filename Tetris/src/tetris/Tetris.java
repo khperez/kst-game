@@ -35,6 +35,10 @@ public class Tetris extends JPanel {
 	public static int WINDOWHEIGHT = 1000;
 	public static int TETRISWIDTH = 600;
 	
+	public static ScoreCounter point = new ScoreCounter();
+//	public static JTextField scoreText;
+//	public static String scoreDis = "";
+	
 	private Game game;
 	private JFrame f;
 	private EventController ec;

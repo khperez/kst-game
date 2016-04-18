@@ -118,6 +118,13 @@ public class Grid
         	if(col == WIDTH) // a row is found
             {
         		removeRow(row);
+        		
+        		//UPDATE SCORE - TY - 4/13/16
+//                Tetris.point.addPoint();
+//                StringBuilder temp = new StringBuilder();
+//                temp.append(Tetris.point.getScore());
+//                Tetris.scoreDis = temp.toString();
+//                Tetris.scoreText.setText(Tetris.scoreDis);     
             }
         } 
 	}
