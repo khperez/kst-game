@@ -63,6 +63,7 @@ public class Tetris extends JPanel {
 	private EventController ec;
 	public static Button btn_score;
 	public RightPanel panel_Right;
+	Clip clip;
 
 	/** Sets up the parts for the Tetris game, display and user control
 	 * @param f frame to draw the game on
@@ -138,12 +139,14 @@ public class Tetris extends JPanel {
 							game.setPausedState(false);
 							btn_Pause.setSelected(false);
 							btn_Pause.setText("PAUSE");
+							clip.start();
 						}
 						else
 						{
 							game.setPausedState(true);
 							btn_Pause.setSelected(true);
 							btn_Pause.setText("RESUME");
+							clip.stop();
 						}
 					}
 				});
@@ -198,7 +201,7 @@ public class Tetris extends JPanel {
 		// play tetris theme song
 		try
 	    {
-	        Clip clip = AudioSystem.getClip();
+	        clip = AudioSystem.getClip();
 	        clip.open(AudioSystem.getAudioInputStream(new File("resources/tetris.wav")));
 	        clip.loop(10);
 	        clip.start();
@@ -323,7 +326,10 @@ public class Tetris extends JPanel {
 			public void actionPerformed(ActionEvent e)
 			{
 				ec.stopTimer();
+				clip.stop();
+				clip.drain();
 				f.dispose();
+				System.exit(0);
 			}
 		});
 	}
