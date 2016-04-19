@@ -18,6 +18,8 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -192,6 +194,19 @@ public class Tetris extends JPanel {
 		bg.add(this, BorderLayout.CENTER);
 		bg.add(panel_Left, BorderLayout.WEST);
 		bg.add(panel_Right, BorderLayout.EAST);
+		
+		// play tetris theme song
+		try
+	    {
+	        Clip clip = AudioSystem.getClip();
+	        clip.open(AudioSystem.getAudioInputStream(new File("resources/tetris.wav")));
+	        clip.loop(10);
+	        clip.start();
+	    }
+	    catch (Exception exc)
+	    {
+	        exc.printStackTrace(System.out);
+	    }
 	}
 
 	/** Updates the display
@@ -212,7 +227,7 @@ public class Tetris extends JPanel {
 		if (game.isGameOver()) {
 			g.setFont(GameFont.fontWithSize(30f));
 			g.setColor(Color.RED);
-			g.drawString("GAME OVER!", (WINDOWWIDTH/2)-115, 60);
+			g.drawString("GAME OVER!", (TETRISWIDTH/2)-115, 60);
 		}
 	}
 	

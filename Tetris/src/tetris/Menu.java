@@ -173,12 +173,12 @@ public class Menu extends JPanel
 		JLabel lbl_diff = new JLabel("DIFFICULTY", JLabel.CENTER);
 		lbl_diff.setFont(GameFont.fontWithSize(26f));
 		lbl_diff.setVerticalAlignment(JLabel.BOTTOM);
-		lbl_diff.setForeground(Color.BLACK);
+		lbl_diff.setForeground(new Color(255, 255, 255, 80));
 		
 		JLabel lbl_size = new JLabel("BOARD SIZE", JLabel.CENTER);
 		lbl_size.setFont(GameFont.fontWithSize(26f));
 		lbl_size.setVerticalAlignment(JLabel.BOTTOM);
-		lbl_size.setForeground(Color.BLACK);
+		lbl_size.setForeground(new Color(255, 255, 255, 80));
 		
 		// setup all panels on main panel, add play button
 		add(new EmptyPanel());
@@ -196,18 +196,6 @@ public class Menu extends JPanel
 		// add main panel to frame, show window
 		f.add(this);
 		f.setVisible(true);
-		
-		// working wav code
-//		try
-//	    {
-//	        Clip clip = AudioSystem.getClip();
-//	        clip.open(AudioSystem.getAudioInputStream(new File("resources/Tetris.mp3")));
-//	        clip.start();
-//	    }
-//	    catch (Exception exc)
-//	    {
-//	        exc.printStackTrace(System.out);
-//	    }
 	}
 
 	public void paintComponent(Graphics g)
