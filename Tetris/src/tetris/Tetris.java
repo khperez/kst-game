@@ -50,6 +50,20 @@ public class Tetris extends JPanel {
 		public void paintComponent(Graphics g)
 		{
 			super.paintComponent(g);
+			
+			g.setColor(new Color(0,0,0,80));
+
+			try
+			{
+				Image bgImage = ImageIO.read(new File("images/tetris_upnext.png"));
+				if (bgImage != null) g.drawImage(bgImage, 52, 400, 197, 470, null);
+				
+				bgImage = ImageIO.read(new File("images/tetris_score.png"));
+				if (bgImage != null) g.drawImage(bgImage, 45, 150, 216, 125, null);
+				
+			}
+			catch (IOException e) { e.printStackTrace(); }
+			
 			game.drawNextPieces(g);
 		}
 	};
@@ -178,17 +192,14 @@ public class Tetris extends JPanel {
 		lbl_un.setForeground(Color.WHITE);		
 		
 		// score label/button generator
-		btn_score = new Button("0", GameFont.font, 40f, Color.WHITE, Color.WHITE);
+		btn_score = new Button("0", GameFont.font, 60f, Color.WHITE, Color.WHITE);
 		btn_score.setFocusable(false);
-		
-		ImageBGPanel layoutScore = new ImageBGPanel("images/menu_btn.png");
-		layoutScore.setLayout(new GridLayout(1,1));
-		layoutScore.add(btn_score);
+		btn_score.setVerticalAlignment(Button.BOTTOM);
 		
 		// right panel components
 		panel_Right.add(new EmptyPanel());
 		panel_Right.add(lbl_score);
-		panel_Right.add(layoutScore);
+		panel_Right.add(btn_score);
 		panel_Right.add(new EmptyPanel());
 		panel_Right.add(lbl_un);
 		

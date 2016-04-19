@@ -76,8 +76,8 @@ public abstract class AbstractPiece implements Piece
 		
 		int i = 0;
 		
-		if(pivotRow == 0 || grid.isSet(pivotRow, pivotCol + 1) || grid.isSet(pivotRow, pivotCol - 1) )
-			return;
+		// modified code to ensure exceptions aren't possible, sergio 4/18
+		if ((pivotRow == 0) || ((pivotCol+1 >= Grid.WIDTH) ? true : grid.isSet(pivotRow, pivotCol+1)) || ((pivotCol-1 <= 0) ? true : grid.isSet(pivotRow, pivotCol - 1))) return;
 		
 		while (i < PIECE_COUNT)
 		{
@@ -95,6 +95,7 @@ public abstract class AbstractPiece implements Piece
 				square[i].setRow(row);			// set individual square
 				square[i].setCol(col);
 			}
+			
 			else
 			{
 				square[i].setRow(pivotRow);		// set origin
@@ -117,8 +118,8 @@ public abstract class AbstractPiece implements Piece
 		
 		int i = 0;
 		
-		if(pivotRow == 0 || grid.isSet(pivotRow, pivotCol + 1) || grid.isSet(pivotRow, pivotCol - 1) )
-			return;
+		// modified code to ensure exceptions aren't possible, sergio 4/18
+		if((pivotRow == 0) || ((pivotCol+1 >= Grid.WIDTH) ? true : grid.isSet(pivotRow, pivotCol+1)) || ((pivotCol-1 <= 0) ? true : grid.isSet(pivotRow, pivotCol - 1))) return;
 		
 		while (i < PIECE_COUNT)
 		{
@@ -136,6 +137,7 @@ public abstract class AbstractPiece implements Piece
 				square[i].setRow(row);			// set individual square
 				square[i].setCol(col);
 			}
+			
 			else
 			{
 				square[i].setRow(pivotRow);		// set origin

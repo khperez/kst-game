@@ -42,10 +42,10 @@ public class Game
 	
 	public void drawNextPieces(Graphics g)
 	{
-		pieceNext[0].drawAtLocation(g, 110, 400);
-		pieceNext[1].drawAtLocation(g, 110, 500);
-		pieceNext[2].drawAtLocation(g, 110, 600);
-		pieceNext[3].drawAtLocation(g, 110, 700);
+		pieceNext[0].drawAtLocation(g, 110, 420);
+		pieceNext[1].drawAtLocation(g, 110, 530);
+		pieceNext[2].drawAtLocation(g, 110, 640);
+		pieceNext[3].drawAtLocation(g, 110, 750);
 	}
 
 	/** Moves the piece in the given direction

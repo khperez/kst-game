@@ -81,23 +81,27 @@ public class Square {
 		boolean move = true;
 		// if the given direction is blocked, we can't move
 		// remember to check the edges of the grid
-		switch (direction) {
-		case DOWN:
-			if (row == (Grid.HEIGHT - 1) || grid.isSet(row + 1, col))
-				move = false;
-			break;
-
-		// currently doesn't support checking LEFT or RIGHT
-		// MODIFY so that it correctly returns if it can move left or right
-		case LEFT:
-                        if(col == 0 || grid.isSet(row, col-1)) 
-                            move = false;
-                        break;
-		case RIGHT: // CODE ADDED FOR PART 1
-                        if((col == Grid.WIDTH) || grid.isSet(row, col+1))
-                        	move = false;
-                        break;
+		switch (direction)
+		{
+			case DOWN:
+			{
+				if (row == (Grid.HEIGHT - 1) || grid.isSet(row + 1, col)) move = false;
+				break;
+			}
+		
+			case LEFT:
+			{
+				if(col == 0 || grid.isSet(row, col-1)) move = false;    
+                break;
+			}
+                        
+			case RIGHT:
+			{
+				if((col == Grid.WIDTH-1) || grid.isSet(row, col+1)) move = false;
+                break;
+			}        
 		}
+		
 		return move;
 	}
 
@@ -173,10 +177,10 @@ public class Square {
 		}
 	}
 	
-	public void drawAtLocation(Graphics g, int x, int y, int o, int correction)
+	public void drawAtLocation(Graphics g, int x, int y, int o, int c)
 	{
 		// calculate the upper left (x,y) coordinate of this square
-		int actualX = x + (col - o + correction) * WIDTH;
+		int actualX = x + (col - o + c) * WIDTH;
 		int actualY = y + row * HEIGHT;
 		g.setColor(color);
 		
