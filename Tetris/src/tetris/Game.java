@@ -11,9 +11,11 @@ public class Game
 {
 	private Grid grid; // the grid that makes up the Tetris board
 	private Tetris display; // the visual for the Tetris game
-	private AbstractPiece piece; // the current piece that is dropping
 	private boolean isOver; // has the game finished?
 	private static boolean isPaused; // is the game paused?
+	
+	private AbstractPiece piece; // the current piece that is dropping
+	private AbstractPiece [] pieceNext = new AbstractPiece[4];
 
 	/** Creates a Tetris game
 	 * @param Tetris the display */
@@ -21,8 +23,10 @@ public class Game
 	{
 		grid = new Grid();
 		this.display = display;
-		piece = randomPiece(); // SERGIO 4/7/16 //
 		isOver = false;
+		
+		piece = randomPiece();
+		for (int i=0; i<4; i++) pieceNext[i] = randomPiece();
 	}
 
 	/** Draws the current state of the game
@@ -30,9 +34,18 @@ public class Game
 	public void draw(Graphics g)
 	{
 		grid.draw(g);
-		if (piece != null) {
+		if (piece != null)
+		{
 			piece.draw(g);
 		}
+	}
+	
+	public void drawNextPieces(Graphics g)
+	{
+		pieceNext[0].drawAtLocation(g, 110, 400);
+		pieceNext[1].drawAtLocation(g, 110, 500);
+		pieceNext[2].drawAtLocation(g, 110, 600);
+		pieceNext[3].drawAtLocation(g, 110, 700);
 	}
 
 	/** Moves the piece in the given direction
@@ -83,8 +96,15 @@ public class Game
 	/** Updates the piece */
 	private void updatePiece()
 	{
-		if (piece == null) {
-			piece = randomPiece(); // SERGIO 4/7/16 //
+		if (piece == null)
+		{	
+			piece = pieceNext[0];
+			pieceNext[0] = pieceNext[1];
+			pieceNext[1] = pieceNext[2];
+			pieceNext[2] = pieceNext[3];
+			pieceNext[3] = randomPiece();
+			
+			display.panel_Right.update();
 		}
 
 		// set Grid positions corresponding to frozen piece
@@ -115,7 +135,7 @@ public class Game
         grid.checkRows();
         display.update();
     }
-	
+
 	// SERGIO 4/7/16 //
 	/** Returns a random piece */
 	public AbstractPiece randomPiece()
@@ -150,5 +170,4 @@ public class Game
 		
 		return p;
 	}
-	// SERGIO 4/7/16 //
 }

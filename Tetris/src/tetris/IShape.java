@@ -15,6 +15,7 @@ public class IShape extends AbstractPiece
 		grid = g;
 		square = new Square[PIECE_COUNT];
 		ableToMove = true;
+		centerOffset = c;
 		
 		//Create the squares
 		square[0] = new Square(g, r, c, Color.cyan, true);

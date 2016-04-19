@@ -9,11 +9,19 @@ public abstract class AbstractPiece implements Piece
 	protected Square[] square; // the squares that make up this piece
 	protected Grid grid; // the board this piece is on	// Made up of PIECE_COUNT squares
 	protected static final int PIECE_COUNT = 4;	// number of squares in one Tetris game piece
+	protected int centerOffset;
+	protected int offsetCorrection = 0;
 
 	public void draw(Graphics g)
 	{
 		for (int i = 0; i < PIECE_COUNT; i++)
 			square[i].draw(g);
+	}
+	
+	public void drawAtLocation(Graphics g, int x, int y)
+	{
+		for (int i = 0; i < PIECE_COUNT; i++)
+			square[i].drawAtLocation(g, x, y, centerOffset, offsetCorrection);
 	}
 
 	public void move(Direction direction)

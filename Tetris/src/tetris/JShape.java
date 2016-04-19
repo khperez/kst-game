@@ -22,6 +22,8 @@ public class JShape extends AbstractPiece
 		grid = g;
 		square = new Square[PIECE_COUNT];
 		ableToMove = true;
+		centerOffset = c;
+		offsetCorrection = 2;
 
 		// Create the squares
 		square[0] = new Square(g, r - 1, c, Color.blue, true);

@@ -31,6 +31,27 @@ public class Tetris extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private static final int IFW = JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT;
 	
+	public class RightPanel extends JPanel
+	{
+		private static final long serialVersionUID = 1L;
+		
+		public RightPanel()
+		{
+			super();
+		}
+		
+		public void update()
+		{
+			repaint();
+		}
+		
+		public void paintComponent(Graphics g)
+		{
+			super.paintComponent(g);
+			game.drawNextPieces(g);
+		}
+	};
+	
 	public static int WINDOWWIDTH = 1200;
 	public static int WINDOWHEIGHT = 1000;
 	public static int TETRISWIDTH = 600;
@@ -39,12 +60,24 @@ public class Tetris extends JPanel {
 	private JFrame f;
 	private EventController ec;
 	public static Button btn_score;
+	public RightPanel panel_Right;
 
 	/** Sets up the parts for the Tetris game, display and user control
 	 * @param f frame to draw the game on
 	 */
 	public Tetris()
 	{
+		// create game
+		game = new Game(this);
+		
+		// generate window
+		f = new JFrame("Tetris");
+		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		f.setSize(WINDOWWIDTH, WINDOWHEIGHT);
+		f.setVisible(true);
+		f.setLayout(new BorderLayout());
+		f.setResizable(false);
+				
 		// class to construct a panel with an image for background
 		class BGPanel extends JPanel
 		{
@@ -62,7 +95,6 @@ public class Tetris extends JPanel {
 			    try
 			    {
 			    	Image bgImage = ImageIO.read(new File("images/tetris_bg.png"));
-				    
 				    if (bgImage != null) g.drawImage(bgImage,0,0,this);
 			    }
 			    
@@ -77,22 +109,10 @@ public class Tetris extends JPanel {
 		panel_Left.setLayout(new GridLayout(12,1));
 		
 		// right panel
-		JPanel panel_Right = new JPanel();
+		panel_Right = new RightPanel();
 		panel_Right.setPreferredSize(new Dimension(300, WINDOWHEIGHT));
 		panel_Right.setOpaque(false);		
 		panel_Right.setLayout(new GridLayout(12,1));
-		
-		// create game
-		game = new Game(this);
-		
-		// generate window
-		f = new JFrame("Tetris");
-		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		f.setSize(WINDOWWIDTH, WINDOWHEIGHT);
-		f.setVisible(true);
-		f.setLayout(new BorderLayout());
-		f.setResizable(false);
-		
 
 		// generate background panel
 		BGPanel bg = new BGPanel();

@@ -139,8 +139,8 @@ public class Square {
 	/**
 	 * Draws this square on the given graphics context
 	 */
-	public void draw(Graphics g) {
-
+	public void draw(Graphics g)
+	{
 		// calculate the upper left (x,y) coordinate of this square
 		int actualX = Grid.LEFT + col * WIDTH;
 		int actualY = Grid.TOP + row * HEIGHT;
@@ -171,11 +171,39 @@ public class Square {
 			
 			catch(IOException e){}
 		}
-
-//		// black border (if not empty)
-//		if (!color.equals(Grid.EMPTY)) {
-//			g.setColor(Color.BLACK);
-//			//g.drawRect(actualX, actualY, WIDTH, HEIGHT);
-//		}
+	}
+	
+	public void drawAtLocation(Graphics g, int x, int y, int o, int correction)
+	{
+		// calculate the upper left (x,y) coordinate of this square
+		int actualX = x + (col - o + correction) * WIDTH;
+		int actualY = y + row * HEIGHT;
+		g.setColor(color);
+		
+		String squareFile = null;
+		
+		if(color.equals(Grid.EMPTY))
+		{
+			g.fillRect(actualX, actualY, WIDTH, HEIGHT);
+		}
+		
+		else
+		{
+			try
+			{
+				if (color.equals(Color.RED)) squareFile = "images/square_red.png";
+				else if (color.equals(Color.BLUE)) squareFile = "images/square_blue.png";
+				else if (color.equals(Color.ORANGE)) squareFile = "images/square_orange.png";
+				else if (color.equals(Color.YELLOW)) squareFile = "images/square_yellow.png";
+				else if (color.equals(Color.GREEN)) squareFile = "images/square_green.png";
+				else if (color.equals(Color.MAGENTA)) squareFile = "images/square_magenta.png";
+				else if (color.equals(Color.CYAN)) squareFile = "images/square_cyan.png";
+				
+				Image bgImage = ImageIO.read(new File(squareFile));
+			    if (bgImage != null) g.drawImage(bgImage,actualX,actualY, WIDTH, HEIGHT, null);
+			}
+			
+			catch(IOException e){}
+		}
 	}
 }
