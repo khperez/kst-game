@@ -1,12 +1,20 @@
 package tetris;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.List;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public abstract class AbstractPiece implements Piece
 {
 	protected boolean ableToMove; // can this piece move
 	protected Square[] square; // the squares that make up this piece
+	protected Square[] ghost;
+	private int ghostY;
+	private int maxRow = Grid.HEIGHT - 1;
+	private int maxCol = Grid.WIDTH - 1;
 	protected Grid grid; // the board this piece is on	// Made up of PIECE_COUNT squares
 	protected static final int PIECE_COUNT = 4;	// number of squares in one Tetris game piece
 	protected int centerOffset;
@@ -15,7 +23,10 @@ public abstract class AbstractPiece implements Piece
 	public void draw(Graphics g)
 	{
 		for (int i = 0; i < PIECE_COUNT; i++)
+		{
 			square[i].draw(g);
+			computeGhost(g);
+		}
 	}
 	
 	public void drawAtLocation(Graphics g, int x, int y)
@@ -27,7 +38,10 @@ public abstract class AbstractPiece implements Piece
 	public void move(Direction direction)
 	{
 		if (canMove(direction))
+		{
 			for (int i = 0; i < PIECE_COUNT; i++) square[i].move(direction);
+			
+		}
 		
 		else if (direction == Direction.DOWN)	// if we couldn't move, check if it's because we're at the bottom
 			ableToMove = false;
@@ -147,4 +161,104 @@ public abstract class AbstractPiece implements Piece
 			i++;
 		}
 	}
+	
+	protected void computeGhost(Graphics g)
+	{
+		for (int i = 0; i < PIECE_COUNT; i++)
+			ghost[i].drawGhost(g, maxRow, maxCol);
+	}
+	/*
+	public void showGhost(int distance)
+	{
+		
+		int curRow, curCol;
+		
+		Point[] curPos = this.getLocations();
+		
+		int i= 0;
+		for (i = 0; i < curPos.length; i++)
+		{
+			curRow = (int) curPos[i].getX();
+			curCol = (int) curPos[i].getY();
+			if (isValid(distance, curCol))
+			{
+				ghost[i].setRow(distance + curRow);
+				ghost[i].setCol(curCol);
+			}
+			else
+				return;
+		}
+	}
+	
+	protected boolean isValid(int x, int y)
+	{
+		if (!(x >= 0 && x <= maxRow) || !(y >= 0 && y <= maxCol))
+			return false;
+		return true;
+	}
+	*/
+	
+	/*protected int computeGhost()
+	{			
+		ghostY = 0;
+		int curRow, curCol, ghostX;
+		int distance = maxRow;
+		boolean gridCheck = true;
+		Point[] curPos = this.getLocations();
+		
+		int i= 0, j = 0;
+		for (i = 0; i < curPos.length; i++) 
+		{
+			curRow = (int) curPos[i].getX();
+			if (ghostY <= curRow)
+			{
+				ghostY = curRow;
+			}
+		}
+		for (i = 0; i < curPos.length; i++) 
+		{
+			curRow = (int) curPos[i].getX();
+			if (curRow == ghostY)
+			{
+				j++;
+			}
+		}
+		
+		Point[] ghostPos = new Point[j];
+		for (i = 0; i < curPos.length; i++)
+		{
+			curRow = (int) curPos[i].getX();
+			curCol = (int) curPos[i].getY();
+			if(curRow == ghostY)
+			{
+				ghostPos[j] = new Point(ghostY, curCol);
+				j++;
+			}
+		}
+		
+		for (j = 0; j < ghostPos.length; j++)
+		{
+			curRow = (int) ghostPos[j].getX();
+			curCol = (int) ghostPos[j].getY();
+			distance = maxRow;
+			while(gridCheck)
+			{
+				if (grid.isSet(distance, curCol))
+				{
+					distance--;
+					ghostY = distance;
+				}
+				else
+					gridCheck = false;
+			}
+			
+			if (ghostY <= distance)
+			{
+				distance = ghostY;
+			}			
+		}
+				
+		return distance;
+	}
+	*/
 }

@@ -15,6 +15,7 @@ public class Game
 	private static boolean isPaused; // is the game paused?
 	
 	private AbstractPiece piece; // the current piece that is dropping
+	private AbstractPiece ghost;
 	private AbstractPiece [] pieceNext = new AbstractPiece[4];
 
 	/** Creates a Tetris game
@@ -156,7 +157,7 @@ public class Game
 			center = Grid.WIDTH/2-1;
 		}
 		
-		switch(rand.nextInt(7))
+		switch(rand.nextInt(1))
 		{
 			case 0: p = new LShape(1, center, grid); break;
 			case 1: p = new ZShape(1, center, grid); break;

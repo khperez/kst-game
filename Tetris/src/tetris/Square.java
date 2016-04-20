@@ -210,4 +210,32 @@ public class Square {
 			catch(IOException e){}
 		}
 	}
+	
+	public void drawGhost(Graphics g, int x, int y)
+	{
+		// calculate the upper left (x,y) coordinate of this square
+		int actualX = x + (col) * WIDTH;
+		int actualY = y + row * HEIGHT;
+		g.setColor(color);
+		
+		String squareFile = null;
+		
+		if(color.equals(Grid.EMPTY))
+		{
+			g.fillRect(actualX, actualY, WIDTH, HEIGHT);
+		}
+		
+		else
+		{
+			try
+			{
+				if (color.equals(Color.BLACK)) squareFile = "images/square_empty.png";
+				
+				Image bgImage = ImageIO.read(new File(squareFile));
+			    if (bgImage != null) g.drawImage(bgImage,actualX,actualY, WIDTH, HEIGHT, null);
+			}
+			
+			catch(IOException e){}
+		}
+	}
 }

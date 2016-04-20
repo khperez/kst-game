@@ -19,6 +19,7 @@ public class LShape extends AbstractPiece
 	public LShape(int r, int c, Grid g) {
 		grid = g;
 		square = new Square[PIECE_COUNT];
+		ghost = new Square[PIECE_COUNT];
 		ableToMove = true;
 		centerOffset = c;
 		offsetCorrection = 1;
@@ -28,5 +29,11 @@ public class LShape extends AbstractPiece
 		square[1] = new Square(g, r, c, Color.ORANGE, true);
 		square[2] = new Square(g, r + 1, c, Color.ORANGE, true);
 		square[3] = new Square(g, r + 1, c + 1, Color.ORANGE, true);
+		
+		ghost[0] = new Square(g, r - 1, c, Color.BLACK, true);
+		ghost[1] = new Square(g, r, c, Color.BLACK, true);
+		ghost[2] = new Square(g, r + 1, c, Color.BLACK, true);
+		ghost[3] = new Square(g, r + 1, c + 1, Color.BLACK, true);
+		
 	}
 }
