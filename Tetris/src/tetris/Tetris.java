@@ -86,6 +86,7 @@ public class Tetris extends JPanel {
 	{
 		// create game
 		game = new Game(this);
+		game.setPausedState(false);
 		
 		// generate window
 		f = new JFrame("Tetris");
@@ -179,8 +180,9 @@ public class Tetris extends JPanel {
 		
 		// left panel components
 		panel_Left.add(new EmptyPanel());
-		panel_Left.add(layoutPause);
+		panel_Left.add(new EmptyPanel());
 		panel_Left.add(layoutMenu);
+		panel_Left.add(layoutPause);
 		
 		// create group labels
 		JLabel lbl_score = new JLabel("SCORE", JLabel.CENTER);
@@ -204,6 +206,7 @@ public class Tetris extends JPanel {
 		panel_Right.add(lbl_un);
 		
 		attachActions(btn_Pause);
+		attachActions(btn_Menu);
 		
 		bg.add(this, BorderLayout.CENTER);
 		bg.add(panel_Left, BorderLayout.WEST);

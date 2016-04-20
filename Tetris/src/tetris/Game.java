@@ -24,6 +24,7 @@ public class Game
 		grid = new Grid();
 		this.display = display;
 		isOver = false;
+		isPaused = false;
 		
 		piece = randomPiece();
 		for (int i=0; i<4; i++) pieceNext[i] = randomPiece();
