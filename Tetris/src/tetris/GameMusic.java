@@ -36,8 +36,8 @@ public class GameMusic implements LineListener
 	{
 		if (!(themeSong.isRunning()))
 			{
-				themeSong.start();
 				loopEffect = true;
+				themeSong.start();
 			}
 	}
 	
@@ -45,8 +45,8 @@ public class GameMusic implements LineListener
 	{
 		if (themeSong.isRunning())
 			{
-				themeSong.stop();
 				loopEffect = false;
+				themeSong.stop();
 			}
 	}
 
