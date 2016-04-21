@@ -11,6 +11,7 @@ This project is our implementation of the popular arcade game, Tetris.
 - [x] Fix pause bug
 - [x] Up-next queue
 - [x] Ghost piece
+- [x] Hard drop
 
 ###### Features to be completed:
 
