@@ -57,7 +57,7 @@ public class Tetris extends JPanel {
 				if (bgImage != null) g.drawImage(bgImage, 52, 400, 197, 470, null);
 				
 				bgImage = ImageIO.read(new File("images/tetris_score.png"));
-				if (bgImage != null) g.drawImage(bgImage, 45, 150, 216, 125, null);
+				if (bgImage != null) g.drawImage(bgImage, 45, 155, 216, 125, null);
 				
 			}
 			catch (IOException e) { e.printStackTrace(); }
@@ -194,7 +194,7 @@ public class Tetris extends JPanel {
 		lbl_un.setForeground(Color.WHITE);		
 		
 		// score label/button generator
-		btn_score = new Button("0", GameFont.font, 60f, Color.WHITE, Color.WHITE);
+		btn_score = new Button("0", GameFont.font, 40f, Color.WHITE, Color.WHITE);
 		btn_score.setFocusable(false);
 		btn_score.setVerticalAlignment(Button.BOTTOM);
 		

@@ -85,8 +85,10 @@ public abstract class AbstractPiece implements Piece
 			point = square[i].floorShiftAmount();
 			lowestPoint = (point < lowestPoint) ? point : lowestPoint;
 		}
-
-		return (lowestPoint-1);
+		
+		lowestPoint--;
+		lowestPoint = (lowestPoint > 0) ? lowestPoint : 0;
+		return (lowestPoint);
 	}
 
 	public void rotateCW()
