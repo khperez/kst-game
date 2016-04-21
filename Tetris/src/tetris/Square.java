@@ -115,7 +115,7 @@ public class Square {
 			}
 		}
 		
-		return 0;
+		return 1;
 	}
 
 	/** moves this square in the given direction if possible.
