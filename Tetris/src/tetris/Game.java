@@ -40,6 +40,9 @@ public class Game
 		{
 			piece.drawGhost(g, piece.floorShiftAmount());
 			piece.draw(g);
+			
+			// piece has shift down once, add point for piece
+			ScoreCounter.pieceDropped();
 		}
 	}
 	
@@ -108,6 +111,9 @@ public class Game
 			pieceNext[3] = randomPiece();
 			
 			display.panel_Right.update();
+			
+			// add piece points to score
+			ScoreCounter.pieceAdded();
 		}
 
 		// set Grid positions corresponding to frozen piece
