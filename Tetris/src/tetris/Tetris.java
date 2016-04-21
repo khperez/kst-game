@@ -173,16 +173,50 @@ public class Tetris extends JPanel {
 		
 		// menu button
 		Button btn_Menu = new Button("MENU", GameFont.font, 26f, Color.WHITE, Color.WHITE);
+		btn_Menu.addActionListener(new ActionListener()
+				{
+					public void actionPerformed(ActionEvent e)
+					{
+						f.setVisible(false);
+						
+						//ADD SOME CODE HERE TO STOP THE MUSIC
+						
+						new Menu();
+						
+					}
+				});
+		
+		
+		
+		
 		
 		ImageBGPanel layoutMenu = new ImageBGPanel("images/menu_btn.png");
 		layoutMenu.setLayout(new GridLayout(1,1));
 		layoutMenu.add(btn_Menu);
+		
+		
+		// quit button
+		Button quit = new Button ("QUIT",GameFont.font, 26f, Color.WHITE, Color.WHITE);
+		quit.addActionListener(new ActionListener()
+				{
+					public void actionPerformed(ActionEvent e)
+					{
+						System.exit(0);
+					}
+				});
+		
+		ImageBGPanel layoutQuit = new ImageBGPanel("images/menu_btn.png");			// CHANGE THE PICTURE FOR QUIT BUTTON  OR KEEP THIS PICTURE
+		layoutQuit.setLayout(new GridLayout(1,1));
+		layoutQuit.add(quit);
 		
 		// left panel components
 		panel_Left.add(new EmptyPanel());
 		panel_Left.add(new EmptyPanel());
 		panel_Left.add(layoutMenu);
 		panel_Left.add(layoutPause);
+		panel_Left.add(new EmptyPanel());
+		panel_Left.add(new EmptyPanel());
+		panel_Left.add(layoutQuit);
 		
 		// create group labels
 		JLabel lbl_score = new JLabel("SCORE", JLabel.CENTER);
@@ -245,6 +279,9 @@ public class Tetris extends JPanel {
 			g.setFont(GameFont.fontWithSize(30f));
 			g.setColor(Color.RED);
 			g.drawString("GAME OVER!", (TETRISWIDTH/2)-115, 60);
+			
+			f.setVisible(false);
+			new playAgain();
 		}
 	}
 	
