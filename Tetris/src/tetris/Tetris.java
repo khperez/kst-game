@@ -91,9 +91,10 @@ public class Tetris extends JPanel {
 		f = new JFrame("Tetris");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setSize(WINDOWWIDTH, WINDOWHEIGHT);
-		f.setVisible(true);
 		f.setLayout(new BorderLayout());
 		f.setResizable(false);
+		f.setLocationRelativeTo(null);
+		f.setVisible(true);
 				
 		// class to construct a panel with an image for background
 		class BGPanel extends JPanel

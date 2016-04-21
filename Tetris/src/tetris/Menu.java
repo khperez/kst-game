@@ -30,6 +30,7 @@ public class Menu extends JPanel
 		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		f.setSize(Tetris.WINDOWWIDTH, Tetris.WINDOWHEIGHT);
 		f.setResizable(false);
+		f.setLocationRelativeTo(null);
 		
 		// panel
 		setBackground(Color.BLACK);
