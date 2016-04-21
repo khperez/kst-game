@@ -12,10 +12,11 @@ This project is our implementation of the popular arcade game, Tetris.
 - [x] Up-next queue
 - [x] Ghost piece
 - [x] Hard drop
+- [x] Increase speed of falling blocks over time
+- [x] Fix music code composition
+- [x] Updated points system
 
 ###### Features to be completed:
 
 - [ kat ] Delay on the last line of the grid in order to shift piece to fill "awkward" gaps
-- [ serg ] Increase speed of falling blocks over time
-- [ serg ] Fix music code composition
 - [ ty ] Play again, back to menu, and quit button at the end of game
