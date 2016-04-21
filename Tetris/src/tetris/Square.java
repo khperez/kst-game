@@ -104,6 +104,19 @@ public class Square {
 		
 		return move;
 	}
+	
+	public int floorShiftAmount()
+	{
+		for (int i = 0; i < Grid.HEIGHT; i++)
+		{
+			if ((row + i) == (Grid.HEIGHT) || grid.isSet(row + i, col))
+			{
+				return i;
+			}
+		}
+		
+		return 0;
+	}
 
 	/** moves this square in the given direction if possible.
 	 * 
@@ -175,6 +188,21 @@ public class Square {
 			
 			catch(IOException e){}
 		}
+	}
+	
+	public void drawGhost(Graphics g, int s)
+	{
+		// calculate the upper left (x,y) coordinate of this square
+		int actualX = Grid.LEFT + col * WIDTH;
+		int actualY = Grid.TOP + (row + s) * HEIGHT;
+		
+		try
+		{
+			Image bgImage = ImageIO.read(new File("images/square_ghost.png"));
+		    if (bgImage != null) g.drawImage(bgImage,actualX,actualY, WIDTH, HEIGHT, null);
+		}
+		
+		catch(IOException e){}
 	}
 	
 	public void drawAtLocation(Graphics g, int x, int y, int o, int c)

@@ -18,6 +18,12 @@ public abstract class AbstractPiece implements Piece
 			square[i].draw(g);
 	}
 	
+	public void drawGhost(Graphics g, int shift)
+	{
+		for (int i = 0; i < PIECE_COUNT; i++)
+			square[i].drawGhost(g, shift);
+	}
+	
 	public void drawAtLocation(Graphics g, int x, int y)
 	{
 		for (int i = 0; i < PIECE_COUNT; i++)
@@ -61,6 +67,20 @@ public abstract class AbstractPiece implements Piece
 		}
 		
 		return answer;
+	}
+	
+	public int floorShiftAmount()
+	{
+		int lowestPoint = Grid.HEIGHT+1;
+		int point = 0;
+		
+		for (int i = 0; i < PIECE_COUNT; i++)
+		{
+			point = square[i].floorShiftAmount();
+			lowestPoint = (point < lowestPoint) ? point : lowestPoint;
+		}
+
+		return (lowestPoint-1);
 	}
 
 	public void rotateCW()

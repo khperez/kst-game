@@ -35,8 +35,10 @@ public class Game
 	public void draw(Graphics g)
 	{
 		grid.draw(g);
+		
 		if (piece != null)
 		{
+			piece.drawGhost(g, piece.floorShiftAmount());
 			piece.draw(g);
 		}
 	}
