@@ -18,8 +18,6 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -74,10 +72,9 @@ public class Tetris extends JPanel {
 	
 	private Game game;
 	private JFrame f;
-	private EventController ec;
+	private static EventController ec;
 	public static Button btn_score;
 	public RightPanel panel_Right;
-	Clip clip;
 
 	/** Sets up the parts for the Tetris game, display and user control
 	 * @param f frame to draw the game on
@@ -88,9 +85,11 @@ public class Tetris extends JPanel {
 		game = new Game(this);
 		game.setPausedState(false);
 		
+		GameMusic.beginThemeSong();
+		
 		// generate window
 		f = new JFrame("Tetris");
-		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setSize(WINDOWWIDTH, WINDOWHEIGHT);
 		f.setVisible(true);
 		f.setLayout(new BorderLayout());
@@ -154,14 +153,14 @@ public class Tetris extends JPanel {
 							game.setPausedState(false);
 							btn_Pause.setSelected(false);
 							btn_Pause.setText("PAUSE");
-							clip.start();
+							GameMusic.resumeThemeSong();
 						}
 						else
 						{
 							game.setPausedState(true);
 							btn_Pause.setSelected(true);
 							btn_Pause.setText("RESUME");
-							clip.stop();
+							GameMusic.pauseThemeSong();
 						}
 					}
 				});
@@ -211,19 +210,6 @@ public class Tetris extends JPanel {
 		bg.add(this, BorderLayout.CENTER);
 		bg.add(panel_Left, BorderLayout.WEST);
 		bg.add(panel_Right, BorderLayout.EAST);
-		
-		// play tetris theme song
-		try
-	    {
-	        clip = AudioSystem.getClip();
-	        clip.open(AudioSystem.getAudioInputStream(new File("resources/tetris.wav")));
-	        clip.loop(10);
-	        clip.start();
-	    }
-	    catch (Exception exc)
-	    {
-	        exc.printStackTrace(System.out);
-	    }
 	}
 
 	/** Updates the display
@@ -246,6 +232,11 @@ public class Tetris extends JPanel {
 			g.setColor(Color.RED);
 			g.drawString("GAME OVER!", (TETRISWIDTH/2)-115, 60);
 		}
+	}
+	
+	public static void increaseGameSpeed()
+	{
+		ec.increaseTimerSpeed();
 	}
 	
 	public void attachActions(JButton btn)
@@ -340,9 +331,8 @@ public class Tetris extends JPanel {
 			public void actionPerformed(ActionEvent e)
 			{
 				ec.stopTimer();
-				clip.stop();
-				clip.drain();
 				f.dispose();
+				GameMusic.disposeMusic();
 				System.exit(0);
 			}
 		});

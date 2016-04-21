@@ -119,8 +119,12 @@ public class Grid
             {
         		removeRow(row);
         		
+        		// add bonus points
         		ScoreCounter.increaseScore(1);
         		Tetris.btn_score.setText(ScoreCounter.getScoreString());
+        		
+        		// increase timer speed
+        		Tetris.increaseGameSpeed();
             }
         } 
 	}

@@ -61,6 +61,8 @@ public class Menu extends JPanel
 			{
 				String src = e.getActionCommand();
 				
+				GameMusic.buttonPress();
+				
 				if (src.equals("PLAY"))
 				{
 					// start game, pass active window along
@@ -215,6 +217,7 @@ public class Menu extends JPanel
 	{	
 		new GameFont("resources/ARCADEPI.TTF");
 		new ScoreCounter();
+		new GameMusic();
 		
 		new Menu();
 	}
