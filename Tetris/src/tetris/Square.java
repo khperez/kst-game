@@ -137,6 +137,11 @@ public class Square {
 			}
 		}
 	}
+	
+	public void moveToGhost(int shift)
+	{
+		row += shift;
+	}
 
 	/**
 	 * Changes the color of this square 

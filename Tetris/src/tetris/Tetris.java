@@ -323,6 +323,14 @@ public class Tetris extends JPanel {
 			private static final long serialVersionUID = 1L;
 			public void actionPerformed(ActionEvent e) { if ((!game.isGameOver()) && (!game.isPaused())) game.rotatePieceCW(); }
 		});
+		
+		// C key
+		btn.getInputMap(IFW).put(KeyStroke.getKeyStroke("C"), "key_C");
+		btn.getActionMap().put("key_C", new AbstractAction()
+		{
+			private static final long serialVersionUID = 1L;
+			public void actionPerformed(ActionEvent e) { if ((!game.isGameOver()) && (!game.isPaused())) game.hardDropPiece(); }
+		});
 
 		// q (quit) key
 		btn.getInputMap(IFW).put(KeyStroke.getKeyStroke("Q"), "key_Q");

@@ -60,6 +60,17 @@ public class Game
         grid.checkRows();
         display.update();
 	}
+	
+	public void hardDropPiece()
+	{
+	
+		if (piece != null) 
+		{
+			int shift = piece.floorShiftAmount();
+			piece.hardDropPiece(shift);
+		}
+		
+	}
 
 	/** Returns true if the game is over */
 	public boolean isGameOver()
