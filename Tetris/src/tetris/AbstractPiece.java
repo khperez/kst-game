@@ -38,6 +38,12 @@ public abstract class AbstractPiece implements Piece
 		else if (direction == Direction.DOWN)	// if we couldn't move, check if it's because we're at the bottom
 			ableToMove = false;
 	}
+	
+	public void hardDropPiece(int floorShift)
+	{
+		for (int i = 0; i < PIECE_COUNT; i++)
+			square[i].moveToGhost(floorShift);
+	}
 
 	public Point[] getLocations()
 	{
@@ -79,8 +85,10 @@ public abstract class AbstractPiece implements Piece
 			point = square[i].floorShiftAmount();
 			lowestPoint = (point < lowestPoint) ? point : lowestPoint;
 		}
-
-		return (lowestPoint-1);
+		
+		lowestPoint--;
+		lowestPoint = (lowestPoint > 0) ? lowestPoint : 0;
+		return (lowestPoint);
 	}
 
 	public void rotateCW()

@@ -97,19 +97,12 @@ public class Button extends JButton
         
 	    if ((buttonType.equals("text")) && (selected == true))
 	    {
-	    	int width = 3;
+	    	int width = 20;
 	    	int height = 2;
 	    	int yCenterOffset = 15;
 	    	
 	    	g.setColor(colorSelected);
-			//g.fillRect((int)this.getSize().getWidth()/2-(width/2), (int)this.getSize().getHeight()/2+yCenterOffset, width, height); // for a single bar
-	    	
-	    	// draw pixelated up arrow
-	    	g.fillRect((int)this.getSize().getWidth()/2-(width/2), (int)this.getSize().getHeight()/2+yCenterOffset, width, height);
-	    	g.fillRect((int)this.getSize().getWidth()/2-(width/2)-width, (int)this.getSize().getHeight()/2+yCenterOffset+height, width, height);
-	    	g.fillRect((int)this.getSize().getWidth()/2-(width/2)+width, (int)this.getSize().getHeight()/2+yCenterOffset+height, width, height);
-	    	g.fillRect((int)this.getSize().getWidth()/2-(width/2)-width*2, (int)this.getSize().getHeight()/2+yCenterOffset+height*2, width, height);
-	    	g.fillRect((int)this.getSize().getWidth()/2-(width/2)+width*2, (int)this.getSize().getHeight()/2+yCenterOffset+height*2, width, height);
+			g.fillRect((int)this.getSize().getWidth()/2-(width/2), (int)this.getSize().getHeight()/2+yCenterOffset, width, height); // for a single bar
 	    }
 	}
 }

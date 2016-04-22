@@ -30,6 +30,7 @@ public class Menu extends JPanel
 		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		f.setSize(Tetris.WINDOWWIDTH, Tetris.WINDOWHEIGHT);
 		f.setResizable(false);
+		f.setLocationRelativeTo(null);
 		
 		// panel
 		setBackground(Color.BLACK);
@@ -60,6 +61,8 @@ public class Menu extends JPanel
 			public void actionPerformed(ActionEvent e)
 			{
 				String src = e.getActionCommand();
+				
+				GameMusic.buttonPress();
 				
 				if (src.equals("PLAY"))
 				{
@@ -215,6 +218,7 @@ public class Menu extends JPanel
 	{	
 		new GameFont("resources/ARCADEPI.TTF");
 		new ScoreCounter();
+		new GameMusic();
 		
 		new Menu();
 	}

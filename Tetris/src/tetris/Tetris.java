@@ -18,8 +18,6 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -59,7 +57,7 @@ public class Tetris extends JPanel {
 				if (bgImage != null) g.drawImage(bgImage, 52, 400, 197, 470, null);
 				
 				bgImage = ImageIO.read(new File("images/tetris_score.png"));
-				if (bgImage != null) g.drawImage(bgImage, 45, 150, 216, 125, null);
+				if (bgImage != null) g.drawImage(bgImage, 45, 155, 216, 125, null);
 				
 			}
 			catch (IOException e) { e.printStackTrace(); }
@@ -74,10 +72,9 @@ public class Tetris extends JPanel {
 	
 	private Game game;
 	private JFrame f;
-	private EventController ec;
+	private static EventController ec;
 	public static Button btn_score;
 	public RightPanel panel_Right;
-	Clip clip;
 
 	/** Sets up the parts for the Tetris game, display and user control
 	 * @param f frame to draw the game on
@@ -88,13 +85,16 @@ public class Tetris extends JPanel {
 		game = new Game(this);
 		game.setPausedState(false);
 		
+		GameMusic.beginThemeSong();
+		
 		// generate window
 		f = new JFrame("Tetris");
-		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setSize(WINDOWWIDTH, WINDOWHEIGHT);
-		f.setVisible(true);
 		f.setLayout(new BorderLayout());
 		f.setResizable(false);
+		f.setLocationRelativeTo(null);
+		f.setVisible(true);
 				
 		// class to construct a panel with an image for background
 		class BGPanel extends JPanel
@@ -154,14 +154,14 @@ public class Tetris extends JPanel {
 							game.setPausedState(false);
 							btn_Pause.setSelected(false);
 							btn_Pause.setText("PAUSE");
-							clip.start();
+							GameMusic.resumeThemeSong();
 						}
 						else
 						{
 							game.setPausedState(true);
 							btn_Pause.setSelected(true);
 							btn_Pause.setText("RESUME");
-							clip.stop();
+							GameMusic.pauseThemeSong();
 						}
 					}
 				});
@@ -228,7 +228,7 @@ public class Tetris extends JPanel {
 		lbl_un.setForeground(Color.WHITE);		
 		
 		// score label/button generator
-		btn_score = new Button("0", GameFont.font, 60f, Color.WHITE, Color.WHITE);
+		btn_score = new Button("0", GameFont.font, 40f, Color.WHITE, Color.WHITE);
 		btn_score.setFocusable(false);
 		btn_score.setVerticalAlignment(Button.BOTTOM);
 		
@@ -245,19 +245,6 @@ public class Tetris extends JPanel {
 		bg.add(this, BorderLayout.CENTER);
 		bg.add(panel_Left, BorderLayout.WEST);
 		bg.add(panel_Right, BorderLayout.EAST);
-		
-		// play tetris theme song
-		try
-	    {
-	        clip = AudioSystem.getClip();
-	        clip.open(AudioSystem.getAudioInputStream(new File("resources/tetris.wav")));
-	        clip.loop(10);
-	        clip.start();
-	    }
-	    catch (Exception exc)
-	    {
-	        exc.printStackTrace(System.out);
-	    }
 	}
 
 	/** Updates the display
@@ -283,6 +270,11 @@ public class Tetris extends JPanel {
 			f.setVisible(false);
 			new playAgain();
 		}
+	}
+	
+	public static void increaseGameSpeed()
+	{
+		ec.increaseTimerSpeed();
 	}
 	
 	public void attachActions(JButton btn)
@@ -368,6 +360,14 @@ public class Tetris extends JPanel {
 			private static final long serialVersionUID = 1L;
 			public void actionPerformed(ActionEvent e) { if ((!game.isGameOver()) && (!game.isPaused())) game.rotatePieceCW(); }
 		});
+		
+		// C key
+		btn.getInputMap(IFW).put(KeyStroke.getKeyStroke("C"), "key_C");
+		btn.getActionMap().put("key_C", new AbstractAction()
+		{
+			private static final long serialVersionUID = 1L;
+			public void actionPerformed(ActionEvent e) { if ((!game.isGameOver()) && (!game.isPaused())) game.hardDropPiece(); }
+		});
 
 		// q (quit) key
 		btn.getInputMap(IFW).put(KeyStroke.getKeyStroke("Q"), "key_Q");
@@ -377,9 +377,8 @@ public class Tetris extends JPanel {
 			public void actionPerformed(ActionEvent e)
 			{
 				ec.stopTimer();
-				clip.stop();
-				clip.drain();
 				f.dispose();
+				GameMusic.disposeMusic();
 				System.exit(0);
 			}
 		});

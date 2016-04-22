@@ -115,7 +115,7 @@ public class Square {
 			}
 		}
 		
-		return 0;
+		return 1;
 	}
 
 	/** moves this square in the given direction if possible.
@@ -136,6 +136,11 @@ public class Square {
             case RIGHT: col++; break; // CODE ADDED FOR PART 1
 			}
 		}
+	}
+	
+	public void moveToGhost(int shift)
+	{
+		row += shift;
 	}
 
 	/**
