@@ -68,4 +68,9 @@ public class ScoreCounter
 	{
 		Tetris.btn_score.setText(getScoreString());
 	}
+	
+	public static void resetScore()
+	{
+		score = 0;
+	}
 }

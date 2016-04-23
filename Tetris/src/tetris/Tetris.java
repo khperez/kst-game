@@ -177,6 +177,9 @@ public class Tetris extends JPanel {
 				{
 					public void actionPerformed(ActionEvent e)
 					{
+						// RESET SCORE TO 0
+						ScoreCounter.resetScore();
+						
 						f.setVisible(false);
 						
 						//ADD SOME CODE HERE TO STOP THE MUSIC
