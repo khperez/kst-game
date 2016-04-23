@@ -105,7 +105,9 @@ public abstract class AbstractPiece implements Piece
 		int i = 0;
 		
 		// modified code to ensure exceptions aren't possible, sergio 4/18
-		if ((pivotRow == 0) || ((pivotCol+1 >= Grid.WIDTH) ? true : grid.isSet(pivotRow, pivotCol+1)) || ((pivotCol-1 <= 0) ? true : grid.isSet(pivotRow, pivotCol - 1))) return;
+		if ((pivotRow == 0) || ((pivotCol+1 >= Grid.WIDTH -1) ? true : grid.isSet(pivotRow, pivotCol+1)) || ((pivotCol-1 <= 0) ? true : grid.isSet(pivotRow, pivotCol - 1))) return;
+														// -1 HERE
+														// NO MORE ERRORS BUTTTTTTTTT LIMIT THE ROTATION NEAR THE EDGE
 		
 		while (i < PIECE_COUNT)
 		{
@@ -147,7 +149,9 @@ public abstract class AbstractPiece implements Piece
 		int i = 0;
 		
 		// modified code to ensure exceptions aren't possible, sergio 4/18
-		if((pivotRow == 0) || ((pivotCol+1 >= Grid.WIDTH) ? true : grid.isSet(pivotRow, pivotCol+1)) || ((pivotCol-1 <= 0) ? true : grid.isSet(pivotRow, pivotCol - 1))) return;
+		if((pivotRow == 0) || ((pivotCol+1 >= Grid.WIDTH-1) ? true : grid.isSet(pivotRow, pivotCol+1)) || ((pivotCol-1 <= 0) ? true : grid.isSet(pivotRow, pivotCol - 1))) return;
+														// -1 HERE
+														// NO MORE ERRORS BUTTTTTTTTT LIMIT THE ROTATION NEAR THE EDGE
 		
 		while (i < PIECE_COUNT)
 		{
