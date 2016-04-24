@@ -187,15 +187,27 @@ public class Tetris extends JPanel {
 						new Menu();
 						
 					}
-				});
-		
-		
-		
+				});	
 		
 		
 		ImageBGPanel layoutMenu = new ImageBGPanel("images/menu_btn.png");
 		layoutMenu.setLayout(new GridLayout(1,1));
 		layoutMenu.add(btn_Menu);
+		
+		
+		// help - instruction 
+		Button btn_help = new Button("HELP", GameFont.font, 26f, Color.WHITE, Color.WHITE);
+		btn_help.addActionListener(new ActionListener()
+				{
+					public void actionPerformed(ActionEvent e)
+					{
+						new instruction();
+					}
+				});
+		
+		ImageBGPanel layoutHelp = new ImageBGPanel("images/menu_btn.png");
+		layoutHelp.setLayout(new GridLayout(1,1));
+		layoutHelp.add(btn_help);
 		
 		
 		// quit button
@@ -216,6 +228,7 @@ public class Tetris extends JPanel {
 		panel_Left.add(new EmptyPanel());
 		panel_Left.add(new EmptyPanel());
 		panel_Left.add(layoutMenu);
+		panel_Left.add(layoutHelp);
 		panel_Left.add(layoutPause);
 		panel_Left.add(new EmptyPanel());
 		panel_Left.add(new EmptyPanel());
