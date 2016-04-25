@@ -20,8 +20,8 @@ public class SShape extends AbstractPiece
 		centerOffset = c;
 		
 		//Create the squares
-		square[0] = new Square(g, r, c + 1, Color.green, true);
-		square[1] = new Square(g, r, c + 2, Color.green, true);
+		square[0] = new Square(g, r, c + 2, Color.green, true);
+		square[1] = new Square(g, r, c + 1, Color.green, true);
 		square[2] = new Square(g, r + 1, c, Color.green, true);
 		square[3] = new Square(g, r + 1, c + 1, Color.green, true);
 	}

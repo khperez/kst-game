@@ -104,52 +104,79 @@ public abstract class AbstractPiece implements Piece
 		
 		int i = 0;
 		
-
-		if ((pivotRow == 0) || ((pivotCol+1 >= Grid.WIDTH)))
+		if ((pivotRow == 0) || (pivotRow == Grid.HEIGHT-1))
+			return;
+		
+		if (((pivotCol+2 >= Grid.WIDTH)))
 		{
 			for(int j = 0; j < 4; j++)
 			{
 				int col = square[j].getCol();
-				col--;
+				if (this instanceof IShape)
+				{
+					if((pivotCol == Grid.WIDTH-1))
+					{
+						col -= 2;
+					}
+					
+					else if((pivotCol == Grid.WIDTH-2))
+					{
+						col--;
+					}
+					
+					else if((pivotCol == Grid.WIDTH-3))
+					{
+						col++;
+					}
+				}			
+				else if (this instanceof SShape)
+				{
+					if((pivotCol == Grid.WIDTH-1))
+					{
+						col--;
+					}
+				}
+				else
+					col--;
 				square[j].setCol(col);	
 			}
+			pivotRow = square[1].getRow();
+			pivotCol = square[1].getCol();
 		}
 		
-		else if ((pivotCol-1 < 0) && (pivotCol-1 > -1))
+		else if ((pivotCol-2 <= 0))
 		{
 			for(int j = 0; j < 4; j++)
 			{
 				int col = square[j].getCol();
-				col++;
+				if (this instanceof IShape)
+				{
+					if((pivotCol == 0))
+					{
+						col += 2;
+					}
+					
+					else if((pivotCol == 1))
+					{
+						col++;
+					}
+					
+				}
+				else if (this instanceof SShape)
+				{
+					if((pivotCol == 0))
+					{
+						col++;
+					}
+				}
+				else
+					col++;
 				square[j].setCol(col);	
 			}
+			pivotRow = square[1].getRow();
+			pivotCol = square[1].getCol();
 		}
-		
-		else if ((pivotCol-2 < 0))
-		{
-			for(int j = 0; j < 4; j++)
-			{
-				int col = square[j].getCol();
-				col += 2;
-				square[j].setCol(col);	
-			}	
-		}
-		
-		else if ((pivotCol == 0))
-		{
-			for(int j = 0; j < 4; j++)
-			{
-				int col = square[j].getCol();
-				col++;
-				square[j].setCol(col);	
-			}
-		}
-		
-		
-		
-		pivotRow = square[1].getRow();
-		pivotCol = square[1].getCol();
-		
+			
 		while (i < PIECE_COUNT)
 		{
 			if (i != 1)
@@ -189,15 +216,79 @@ public abstract class AbstractPiece implements Piece
 		
 		int i = 0;
 		
-		if ((pivotRow == 0) || ((pivotCol+1 >= Grid.WIDTH) ? true : grid.isSet(pivotRow, pivotCol+1)))
+		if ((pivotRow == 0) || (pivotRow+1 > Grid.HEIGHT))
+			return;
+		
+		if (((pivotCol+2 >= Grid.WIDTH)))
 		{
-			pivotRow--;
+			for(int j = 0; j < 4; j++)
+			{
+				int col = square[j].getCol();
+				if (this instanceof IShape)
+				{
+					if((pivotCol == Grid.WIDTH-1))
+					{
+						col -= 2;
+					}
+					
+					else if((pivotCol == Grid.WIDTH-2))
+					{
+						col--;
+					}
+					
+					else if((pivotCol == Grid.WIDTH-3))
+					{
+						col++;
+					}
+				}
+				else if (this instanceof SShape)
+				{
+					if((pivotCol == Grid.WIDTH-1))
+					{
+						col++;
+					}
+				}
+				else
+					col--;
+				square[j].setCol(col);	
+			}
+			pivotRow = square[1].getRow();
+			pivotCol = square[1].getCol();
 		}
 		
-		if ((pivotCol-1 <= 0) ? true : grid.isSet(pivotRow, pivotCol - 1))
+		else if ((pivotCol-2 <= 0))
 		{
-			pivotRow++;
+			for(int j = 0; j < 4; j++)
+			{
+				int col = square[j].getCol();
+				if (this instanceof IShape)
+				{
+					if((pivotCol == 0))
+					{
+						col += 2;
+					}
+					
+					else if((pivotCol == 1))
+					{
+						col++;
+					}
+					
+				}
+				else if (this instanceof SShape)
+				{
+					if((pivotCol == Grid.WIDTH-1))
+					{
+						col--;
+					}
+				}
+				else
+					col++;
+				square[j].setCol(col);	
+			}
+			pivotRow = square[1].getRow();
+			pivotCol = square[1].getCol();
 		}
+		
 		while (i < PIECE_COUNT)
 		{
 			if (i != 1)
