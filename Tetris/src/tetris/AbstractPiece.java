@@ -35,7 +35,7 @@ public abstract class AbstractPiece implements Piece
 		if (canMove(direction))
 			for (int i = 0; i < PIECE_COUNT; i++) square[i].move(direction);
 		
-		else if (direction == Direction.DOWN)	// if we couldn't move, check if it's because we're at the bottom
+		else if (direction == Direction.DOWN)	// if we couldn't move, check if it's because we're at the bottom	
 			ableToMove = false;
 	}
 	
@@ -104,8 +104,51 @@ public abstract class AbstractPiece implements Piece
 		
 		int i = 0;
 		
-		// modified code to ensure exceptions aren't possible, sergio 4/18
-		if ((pivotRow == 0) || ((pivotCol+1 >= Grid.WIDTH) ? true : grid.isSet(pivotRow, pivotCol+1)) || ((pivotCol-1 <= 0) ? true : grid.isSet(pivotRow, pivotCol - 1))) return;
+
+		if ((pivotRow == 0) || ((pivotCol+1 >= Grid.WIDTH)))
+		{
+			for(int j = 0; j < 4; j++)
+			{
+				int col = square[j].getCol();
+				col--;
+				square[j].setCol(col);	
+			}
+		}
+		
+		else if ((pivotCol-1 < 0) && (pivotCol-1 > -1))
+		{
+			for(int j = 0; j < 4; j++)
+			{
+				int col = square[j].getCol();
+				col++;
+				square[j].setCol(col);	
+			}
+		}
+		
+		else if ((pivotCol-2 < 0))
+		{
+			for(int j = 0; j < 4; j++)
+			{
+				int col = square[j].getCol();
+				col += 2;
+				square[j].setCol(col);	
+			}	
+		}
+		
+		else if ((pivotCol == 0))
+		{
+			for(int j = 0; j < 4; j++)
+			{
+				int col = square[j].getCol();
+				col++;
+				square[j].setCol(col);	
+			}
+		}
+		
+		
+		
+		pivotRow = square[1].getRow();
+		pivotCol = square[1].getCol();
 		
 		while (i < PIECE_COUNT)
 		{
@@ -146,9 +189,15 @@ public abstract class AbstractPiece implements Piece
 		
 		int i = 0;
 		
-		// modified code to ensure exceptions aren't possible, sergio 4/18
-		if((pivotRow == 0) || ((pivotCol+1 >= Grid.WIDTH) ? true : grid.isSet(pivotRow, pivotCol+1)) || ((pivotCol-1 <= 0) ? true : grid.isSet(pivotRow, pivotCol - 1))) return;
+		if ((pivotRow == 0) || ((pivotCol+1 >= Grid.WIDTH) ? true : grid.isSet(pivotRow, pivotCol+1)))
+		{
+			pivotRow--;
+		}
 		
+		if ((pivotCol-1 <= 0) ? true : grid.isSet(pivotRow, pivotCol - 1))
+		{
+			pivotRow++;
+		}
 		while (i < PIECE_COUNT)
 		{
 			if (i != 1)
