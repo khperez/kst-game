@@ -19,6 +19,14 @@ public class Button extends JButton
 	private String imageSelectedPath;
 	private String imageUnselectedPath;
 	
+	/**
+	 * Creates a button with custom settings
+	 * @param text the text to display
+	 * @param font font to generate the text with
+	 * @param fontSize custom size for font
+	 * @param colorActive text color for button in active state
+	 * @param colorInactive text color button in inactive state
+	 */
 	public Button(String text, Font font, float fontSize, Color colorActive, Color colorInactive)
 	{
 		super(text);
@@ -35,6 +43,11 @@ public class Button extends JButton
 		this.colorUnselected = colorInactive;
 	}
 	
+	/**
+	 * Creates a button with images rather than text
+	 * @param imageUnselectedPath unselected state image
+	 * @param imageSelectedPath selected state image
+	 */
 	public Button(String imageUnselectedPath, String imageSelectedPath)
 	{
 		super(new ImageIcon(imageUnselectedPath));
@@ -48,11 +61,18 @@ public class Button extends JButton
 		this.imageUnselectedPath = imageUnselectedPath;
 	}
 	
+	/**
+	 * Returns if button is selected
+	 */
 	public boolean isSelected()
 	{
 		return selected;
 	}
 	
+	/**
+	 * Sets the buttons state
+	 * @param state state to set button to
+	 */
 	public void setSelected(boolean state)
 	{
 		selected = state;
@@ -86,11 +106,18 @@ public class Button extends JButton
 		}
 	}
 	
+	/**
+	 * Change the button's displayed text
+	 * @param text text to display
+	 */
 	public void changeText(String text)
 	{
 		setText(text);
 	}
 	
+	/**
+	 * Custom drawing components
+	 */
 	public void paintComponent(Graphics g)
 	{
 	    super.paintComponent(g);
@@ -101,8 +128,9 @@ public class Button extends JButton
 	    	int height = 2;
 	    	int yCenterOffset = 15;
 	    	
+	    	// draw a single bar underneath text when button is selected
 	    	g.setColor(colorSelected);
-			g.fillRect((int)this.getSize().getWidth()/2-(width/2), (int)this.getSize().getHeight()/2+yCenterOffset, width, height); // for a single bar
+			g.fillRect((int)this.getSize().getWidth()/2-(width/2), (int)this.getSize().getHeight()/2+yCenterOffset, width, height);
 	    }
 	}
 }

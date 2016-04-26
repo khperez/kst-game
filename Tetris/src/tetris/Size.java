@@ -1,6 +1,8 @@
 package tetris;
-// SERGIO 4/7/16 //
 
+/**
+ * List of all available board sizes
+ */
 public enum Size
 {
 	SMALL,

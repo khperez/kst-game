@@ -1,4 +1,5 @@
 package tetris;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -57,7 +58,7 @@ public abstract class AbstractPiece implements Piece
 
 	public Color getColor()
 	{
-		return square[0].getColor();	// all squares of this piece have the same color
+		return square[0].getColor(); // all squares of this piece have the same color
 	}
 
 	public boolean canMove(Direction direction)

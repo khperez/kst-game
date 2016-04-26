@@ -1,7 +1,7 @@
 package tetris;
-// Author: Katherine Perez
 
 import java.awt.Color;
+
 /**
  * A Z-Shape piece in the Tetris Game. This piece is made up of 4 squares in the following configuration:
  * <br><br>
@@ -16,7 +16,8 @@ public class ZShape extends AbstractPiece
 	 *  @param r row location for this piece
 	 *  @param c column location for this piece
 	 *  @param g the grid for this game piece */
-	public ZShape(int r, int c, Grid g) {
+	public ZShape(int r, int c, Grid g)
+	{
 		grid = g;
 		square = new Square[PIECE_COUNT];
 		ableToMove = true;

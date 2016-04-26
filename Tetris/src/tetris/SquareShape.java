@@ -1,5 +1,4 @@
 package tetris;
-// Author: Katherine Perez
 
 import java.awt.Color;
 /**
@@ -30,13 +29,18 @@ public class SquareShape extends AbstractPiece
 		square[3] = new Square(g, r + 1, c, Color.YELLOW, true);
 	}
 	
-	// Katherine 4/8/16 //
+	/**
+	 * Square does not need to rotate
+	 */
 	@Override
 	public void rotateCW()
 	{
 		
 	}
-	
+
+	/**
+	 * Square does not need to rotate
+	 */
 	@Override
 	public void rotateCCW()
 	{

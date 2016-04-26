@@ -1,4 +1,5 @@
 package tetris;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -6,7 +7,8 @@ import java.util.Random;
 
 /**
  * Manages the game Tetris. Keeps track of the current piece and the grid.
- * Updates the display whenever the state of the game has changed. */
+ * Updates the display whenever the state of the game has changed.
+ */
 public class Game
 {
 	private Grid grid; // the grid that makes up the Tetris board
@@ -18,7 +20,8 @@ public class Game
 	private AbstractPiece [] pieceNext = new AbstractPiece[4];
 
 	/** Creates a Tetris game
-	 * @param Tetris the display */
+	 * @param Tetris the display
+	 * */
 	public Game(Tetris display)
 	{
 		grid = new Grid();
@@ -31,7 +34,8 @@ public class Game
 	}
 
 	/** Draws the current state of the game
-	 * @param g the Graphics context on which to draw */
+	 * @param g the Graphics context on which to draw
+	 */
 	public void draw(Graphics g)
 	{
 		grid.draw(g);
@@ -46,6 +50,10 @@ public class Game
 		}
 	}
 	
+	/**
+	 * Draws next four pieces in the upcoming sequence
+	 * @param g graphics object to draw pieces on
+	 */
 	public void drawNextPieces(Graphics g)
 	{
 		pieceNext[0].drawAtLocation(g, 110, 420);
@@ -55,7 +63,8 @@ public class Game
 	}
 
 	/** Moves the piece in the given direction
-	 * @param direction the direction to move */
+	 * @param direction the direction to move
+	 */
 	public void movePiece(Direction direction)
 	{
 		if (piece != null) piece.move(direction);
@@ -64,9 +73,11 @@ public class Game
         display.update();
 	}
 	
+	/**
+	 * Forces the piece to do a fast drop to the lowest unoccupied space
+	 */
 	public void hardDropPiece()
 	{
-	
 		if (piece != null) 
 		{
 			int shift = piece.floorShiftAmount();
@@ -75,7 +86,9 @@ public class Game
 		
 	}
 
-	/** Returns true if the game is over */
+	/**
+	 * Returns true if the game is over
+	 */
 	public boolean isGameOver()
 	{
 		// game is over if the piece occupies the same space as some non-empty
@@ -100,17 +113,27 @@ public class Game
 		return false;
 	}
 	
+	/**
+	 * Returns if the game is paused
+	 * @return paused state of game
+	 */
 	public boolean isPaused()
 	{
 		return isPaused;
 	}
 	
+	/**
+	 * Set paused state
+	 * @param state the desired pause state to set the game to
+	 */
 	public void setPausedState(boolean state)
 	{
 		isPaused = state;
 	}
 
-	/** Updates the piece */
+	/**
+	 * Updates the piece
+	 */
 	private void updatePiece()
 	{
 		if (piece == null)
@@ -139,7 +162,9 @@ public class Game
 		}
 	}
 
-    /** Rotate the piece */
+    /**
+     * Rotate the piece clockwise
+     */
 	public void rotatePieceCW()
     {
 		if (piece != null) piece.rotateCW();
@@ -148,6 +173,9 @@ public class Game
         display.update();
     }
 	
+	/**
+	 * Rotate the piece counter-clockwise
+	 */
 	public void rotatePieceCCW()
     {
 		if (piece != null) piece.rotateCCW();
@@ -156,8 +184,10 @@ public class Game
         display.update();
     }
 
-	// SERGIO 4/7/16 //
-	/** Returns a random piece */
+	/**
+	 * Returns a random piece from all available six pieces
+	 * @return a random AbstractPiece
+	 */
 	public AbstractPiece randomPiece()
 	{
 		AbstractPiece p;

@@ -1,4 +1,5 @@
 package tetris;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -30,7 +31,8 @@ public class Square {
 	 * @param mobile true if this Square can move
 	 * @throws IllegalArgumentException if row and col not within the Grid
 	 */
-	public Square(Grid g, int row, int col, Color c, boolean mobile) {
+	public Square(Grid g, int row, int col, Color c, boolean mobile)
+	{
 		if (row < 0 || row > Grid.HEIGHT - 1)
 			throw new IllegalArgumentException("Invalid row =" + row);
 		if (col < 0 || col > Grid.WIDTH - 1)
@@ -105,6 +107,10 @@ public class Square {
 		return move;
 	}
 	
+	/**
+	 * Calculates the amount of squares from current square to lowest unoccupied square
+	 * @return amount of spaces square can move down freely
+	 */
 	public int floorShiftAmount()
 	{
 		for (int i = 0; i < Grid.HEIGHT; i++)
@@ -118,7 +124,7 @@ public class Square {
 		return 1;
 	}
 
-	/** moves this square in the given direction if possible.
+	/** Moves this square in the given direction if possible.
 	 * 
 	 * The square will not move if the direction is blocked, or if the square is
 	 * unable to move.
@@ -138,6 +144,10 @@ public class Square {
 		}
 	}
 	
+	/**
+	 * Move the current square to the position of the ghost
+	 * @param shift shift amount
+	 */
 	public void moveToGhost(int shift)
 	{
 		row += shift;
@@ -195,6 +205,11 @@ public class Square {
 		}
 	}
 	
+	/**
+	 * Draws the ghost square on the given graphics context
+	 * @param g graphics to draw on
+	 * @param s square position row shift
+	 */
 	public void drawGhost(Graphics g, int s)
 	{
 		// calculate the upper left (x,y) coordinate of this square
@@ -210,6 +225,14 @@ public class Square {
 		catch(IOException e){}
 	}
 	
+	/**
+	 * Draw square on the given graphics context at the provided coordinates
+	 * @param g graphics to draw on
+	 * @param x x coordinate
+	 * @param y y coordinate
+	 * @param o center offset
+	 * @param c correction offset
+	 */
 	public void drawAtLocation(Graphics g, int x, int y, int o, int c)
 	{
 		// calculate the upper left (x,y) coordinate of this square

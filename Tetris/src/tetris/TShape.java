@@ -25,8 +25,4 @@ public class TShape extends AbstractPiece
 		square[2] = new Square(g, r, c + 2, Color.MAGENTA, true);
 		square[3] = new Square(g, r + 1, c + 1, Color.MAGENTA, true);
 	}
-	
-	/**
-	* Rotate the Piece
-	*/
 }

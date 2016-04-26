@@ -9,16 +9,19 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
-
-public class highestScore {
-	
-	private final int SIZE = 5;		// ONLY GET 5 HIGHEST SCORES
+public class HighestScore
+{
+	private final int SIZE = 5;		// list of 5 high scores
 	
 	protected int[] tempScores = new int[100];
 	protected int[] highestScores = new int[SIZE];
-	private String fileName = "highestScores.dat";
+	private String fileName = "resources/highestScores.dat";
 	private int counter = 0;
 
+	/**
+	 * Append and save current high score to data file
+	 * @param score to save
+	 */
 	public void saveScores(int score)
 	{
 		PrintWriter textFile = null;
@@ -33,10 +36,13 @@ public class highestScore {
 		}
 		catch (IOException e)
 		{
-			JOptionPane.showMessageDialog(null, "Something is wrong!", "Error", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Something went wrong!", "Error", JOptionPane.WARNING_MESSAGE);
 		}
 	}
 	
+	/**
+	 * Load array of high scores from data file
+	 */
 	public void getScores()
 	{
 		Scanner inputStream = null;
@@ -47,7 +53,7 @@ public class highestScore {
 			
 			while(inputStream.hasNextLine())
 			{
-				if(inputStream.hasNextInt())
+				if((inputStream.hasNextInt()) && (counter < 100))
 				{
 					tempScores[counter] = inputStream.nextInt();
 					counter++;
@@ -59,18 +65,18 @@ public class highestScore {
 		}
 		catch (FileNotFoundException e)
 		{
-			JOptionPane.showMessageDialog(null, "Something is wrong!", "Error", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Something went wrong!", "Error", JOptionPane.WARNING_MESSAGE);
 		}
 			
 		
-		//Bubble sorting using
-		//Temporary variable to hold values in List
+		// bubble sorting using
+		// temporary variable to hold values in List
 		int temp;
 		
-		//Outer loop
+		// outer loop
 		for(int a=1; a <= tempScores.length; a++)
 		{
-			//Inner loop
+			// inner loop
 			for(int b=0; b < ((tempScores.length)-1); b++)
 			{
 				if(tempScores[b+1] > tempScores[b])
@@ -82,7 +88,7 @@ public class highestScore {
 			}
 		}
 		
-		//Set highest scores into an array
+		// set highest scores into an array
 		for(int x=0; x < SIZE; x++)
 		{
 			highestScores[x] = tempScores[x];

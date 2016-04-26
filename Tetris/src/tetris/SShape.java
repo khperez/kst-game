@@ -25,10 +25,5 @@ public class SShape extends AbstractPiece
 		square[2] = new Square(g, r + 1, c, Color.green, true);
 		square[3] = new Square(g, r + 1, c + 1, Color.green, true);
 	}
-	
-	/**
-	* Rotate the Piece
-	*/
-
 }
 

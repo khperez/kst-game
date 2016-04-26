@@ -1,5 +1,4 @@
 package tetris;
-// SERGIO 4/7/16 //
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -10,11 +9,14 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.imageio.*;
 
+/**
+ * Creates a menu for a game of Tetris from which user can specify different configurations
+ */
 public class Menu extends JPanel
 {
 	private static final long serialVersionUID = 1L;
@@ -22,9 +24,12 @@ public class Menu extends JPanel
 	public static Difficulty difficulty = Difficulty.NORMAL;
 	public static Size boardSize = Size.MEDIUM;
 
+	/**
+	 * Create menu panel
+	 */
 	public Menu()
 	{
-		// frame
+		// window frame
 		JFrame f = new JFrame("TETRIS");
 		
 		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -169,7 +174,6 @@ public class Menu extends JPanel
 		// group play button
 		ImageBGPanel layoutPlay = new ImageBGPanel("images/menu_btn.png");
 		layoutPlay.setLayout(new GridLayout(1,1));
-		
 		layoutPlay.add(btn_play);
 		
 		// create group labels
@@ -199,8 +203,14 @@ public class Menu extends JPanel
 		// add main panel to frame, show window
 		f.add(this);
 		f.setVisible(true);
+		
+		// allocate the game theme music and sound effects
+		new GameMusic();
 	}
 
+	/**
+	 * Custom background image drawing on panel
+	 */
 	public void paintComponent(Graphics g)
 	{
 	    super.paintComponent(g);
@@ -216,10 +226,8 @@ public class Menu extends JPanel
 	
 	public static void main(String[] args)
 	{	
-		new GameFont("resources/ARCADEPI.TTF");
-		new ScoreCounter();
-		new GameMusic();
-		
-		new Menu();
+		new GameFont("resources/ARCADEPI.TTF"); // allocate font
+		new ScoreCounter(); // allocate score counter
+		new Menu(); // allocate and display menu
 	}
 }

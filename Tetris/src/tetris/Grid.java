@@ -1,4 +1,5 @@
 package tetris;
+
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -16,7 +17,6 @@ import java.awt.Graphics;
  * spot is occupied (i.e. a piece cannot move over/to an occupied square). A
  * grid will also remove completely full rows.
  */
-
 public class Grid
 {
 	private Square[][] board;
@@ -27,7 +27,9 @@ public class Grid
 	public static int TOP = 50; // pixel position of top of grid
 	public static final Color EMPTY = Color.WHITE;
 
-	/** Creates the grid */
+	/**
+	 * Creates the grid
+	 */
 	public Grid()
 	{
 		// set width and height based on selected board size from menu
@@ -54,6 +56,7 @@ public class Grid
 		TOP = ((Tetris.WINDOWHEIGHT / 2) - ((HEIGHT / 2) * Square.HEIGHT));
 		LEFT = ((Tetris.TETRISWIDTH / 2) - ((WIDTH / 2) * Square.WIDTH));
 		
+		// create new board
 		board = new Square[HEIGHT][WIDTH];
 
 		// put squares in the board
@@ -64,7 +67,8 @@ public class Grid
 		}
 	}
 
-	/** Returns true if the location (row, col) on the grid is occupied
+	/**
+	 * Returns true if the location (row, col) on the grid is occupied
 	 * @param row the row in the grid
 	 * @param col the column in the grid
 	 */
@@ -107,6 +111,9 @@ public class Grid
         }
     }
 
+	/**
+	 * Checks the current state of all of the rows and responds accordingly
+	 */
 	public void checkRows()
 	{
 		int col,row;
@@ -115,8 +122,9 @@ public class Grid
         		if(!isSet(row,col)) break;
             }
             
-        	if(col == WIDTH) // a row is found
+        	if(col == WIDTH) // a complete row was found
             {
+        		// remove row from grid
         		removeRow(row);
         		
         		// add bonus points
@@ -128,7 +136,8 @@ public class Grid
         } 
 	}
 
-	/** Draws the grid on the given Graphics context
+	/**
+	 * Draws the grid on the given Graphics context
 	 */
 	public void draw(Graphics g)
 	{

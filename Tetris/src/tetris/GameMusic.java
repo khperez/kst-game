@@ -7,14 +7,20 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineEvent;
 import javax.sound.sampled.LineListener;
 
+/**
+ * Game theme music and sounds effects
+ */
 public class GameMusic implements LineListener
 {
 	public static Clip themeSong;
 	private static boolean loopEffect = true;
 
+	/**
+	 * Load game music
+	 */
 	public GameMusic()
 	{
-		// play tetris theme song
+		// play Tetris theme song
 		try
 	    {
 			themeSong = AudioSystem.getClip();
@@ -27,11 +33,17 @@ public class GameMusic implements LineListener
 	    }
 	}
 	
+	/**
+	 * Begin playing theme song
+	 */
 	public static void beginThemeSong()
 	{
 		themeSong.start();
 	}
 	
+	/**
+	 * Resume playing theme song
+	 */
 	public static void resumeThemeSong()
 	{
 		if (!(themeSong.isRunning()))
@@ -41,6 +53,9 @@ public class GameMusic implements LineListener
 			}
 	}
 	
+	/**
+	 * Pause playing of theme song
+	 */
 	public static void pauseThemeSong()
 	{
 		if (themeSong.isRunning())
@@ -49,7 +64,10 @@ public class GameMusic implements LineListener
 				themeSong.stop();
 			}
 	}
-
+	
+	/**
+	 * Song updated
+	 */
 	public void update(LineEvent event)
 	{
 		LineEvent.Type t = event.getType();
@@ -64,6 +82,9 @@ public class GameMusic implements LineListener
 		}
 	}
 	
+	/**
+	 * Destroy loaded song from memory
+	 */
 	public static void disposeMusic()
 	{
 		loopEffect = false;
@@ -71,6 +92,9 @@ public class GameMusic implements LineListener
 		themeSong.drain();
 	}
 	
+	/**
+	 * Load sound effect for button presses
+	 */
 	public static void buttonPress()
 	{
 		Clip sound;

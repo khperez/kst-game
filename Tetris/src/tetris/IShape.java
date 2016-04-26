@@ -23,9 +23,4 @@ public class IShape extends AbstractPiece
 		square[2] = new Square(g, r, c + 2, Color.cyan, true);
 		square[3] = new Square(g, r, c + 3, Color.cyan, true);
 	}
-	
-	/**
-	* Rotate the Piece
-	*/
-
 }

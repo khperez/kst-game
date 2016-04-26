@@ -1,35 +1,30 @@
 package tetris;
-/**
- * Handles events for the Tetris Game.  User events (key strokes) as well as periodic timer
- * events.
- * 
- * 
- */
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
 
+/**
+ * Handles events for the Tetris Game.  User events (key strokes) as well as periodic timer events.
+ */
 public class EventController implements ActionListener
 {
-
 	private Game game; // current game: grid and current piece
 	private Timer timer;
 	private double PIECE_MOVE_TIME = 0.6; // wait 0.8 s every time the piece moves down increase to slow it down
 	private boolean gameOver;
 
 	/**
-	 * Creates an EventController to handle key and timer events.
-	 * 
-	 * @param game
-	 *            the game this is controlling
+	 * Creates an EventController to handle key and timer events
+	 * @param game game to control
 	 */
 	public EventController(Game game)
 	{
 		this.game = game;
 		gameOver = false;
 		
-		// SERGIO 4/7/16 //
+		// set delay based on user-selected difficulty
 		switch(Menu.difficulty)
 		{
 			case BEGINNER: PIECE_MOVE_TIME = 1.0; break;
@@ -45,7 +40,9 @@ public class EventController implements ActionListener
 		timer.start();
 	}
 
-	/** Updates the game periodically based on a timer event */
+	/**
+	 * Updates the game periodically based on a timer event
+	 */
 	public void actionPerformed(ActionEvent e)
 	{
 		if(!(game.isPaused())) handleMove(Direction.DOWN);
@@ -61,6 +58,9 @@ public class EventController implements ActionListener
 			timer.stop();
 	}
 	
+	/**
+	 * Increase the timer speed (speed increment is automatically determined by user-selected difficulty)
+	 */
 	public void increaseTimerSpeed()
 	{
 		int newTime = timer.getDelay();
@@ -72,6 +72,9 @@ public class EventController implements ActionListener
 		timer.setDelay(newTime);
 	}
 
+	/**
+	 * Stop active game-play timer
+	 */
 	public void stopTimer()
 	{
 		timer.stop();

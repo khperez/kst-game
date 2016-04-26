@@ -1,6 +1,8 @@
 package tetris;
-// SERGIO 4/7/16 //
 
+/**
+ * List of all available difficulties to play with
+ */
 public enum Difficulty
 {
 	BEGINNER,
