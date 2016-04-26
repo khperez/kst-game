@@ -1,6 +1,5 @@
 package tetris;
 
-import java.awt.BorderLayout;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
