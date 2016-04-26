@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  * Displays the results at the of a game and provides user with different options
@@ -17,6 +18,9 @@ public class GameResults
 {	
 	private static HighestScore highestScore = new HighestScore();
 	private static String temp= "";
+	
+	protected static String saveName = "";
+	private JTextField playerName;
 
 	/** Setup game results window with the following
 	 * - High Scores List
@@ -66,6 +70,12 @@ public class GameResults
 					
 					if(name.equals("PLAY AGAIN"))
 					{
+						
+						
+						// save score and name to text file
+						saveName = playerName.getText();
+						highestScore.saveScores(ScoreCounter.getScore(), saveName);
+						
 						// reset score to 0
 						ScoreCounter.resetScore();
 						
@@ -77,6 +87,10 @@ public class GameResults
 					
 					else if(name.equals("EXIT"))
 					{
+						// save score and name to text file
+						saveName = playerName.getText();
+						highestScore.saveScores(ScoreCounter.getScore(), saveName);
+						
 						System.exit(0);
 					}
 				}
@@ -90,6 +104,9 @@ public class GameResults
 		over.setFont(GameFont.fontWithSize(42f));
 		over.setForeground(Color.RED);
 		
+		
+		
+		
 		// create label display player's score
 		JLabel finalScore = new JLabel("", JLabel.CENTER);
 		finalScore.setFont(GameFont.fontWithSize(20f));
@@ -98,10 +115,7 @@ public class GameResults
 		JLabel hsS = new JLabel("", JLabel.CENTER);
 		hsS.setFont(GameFont.fontWithSize(20f));
 		hsS.setForeground(textColor);
-		
-		// save score to text file
-		highestScore.saveScores(ScoreCounter.getScore());
-		
+				
 		//load highest scores
 		highestScore.getScores();
 		
@@ -119,6 +133,25 @@ public class GameResults
 			hsS.setText("");
 		}
 		
+		// create panel for player name
+		JPanel name = new JPanel();
+		name.setLayout(new GridLayout(1,2));
+		
+		// create label "Enter name:" 
+		JLabel enterName = new JLabel("ENTER NAME: ", JLabel.CENTER);
+		enterName.setFont(GameFont.fontWithSize(fontSize));
+		enterName.setForeground(textColor);
+		
+		// create text field for player enter name
+		playerName = new JTextField();
+
+		
+		
+		name.add(enterName);
+		name.add(playerName);
+		
+		
+		
 		// create layout for labels to display highest scores
 		JPanel scorePanel = new JPanel();
 		scorePanel.setLayout(new GridLayout(6,1));
@@ -129,27 +162,27 @@ public class GameResults
 		highest.setFont(GameFont.fontWithSize(fontSize));
 		highest.setForeground(textColor);
 		
-		String string1 = " 1. " + highestScore.highestScores[0];
+		String string1 = " 1. " + highestScore.highestScores[0] + "  -  " + highestScore.highestNames[0];
 		JLabel firstS = new JLabel(string1);
 		firstS.setFont(GameFont.fontWithSize(fontSize));
 		firstS.setForeground(textColor);
 		
-		String string2 = " 2. " + highestScore.highestScores[1];
+		String string2 = " 2. " + highestScore.highestScores[1] + "  -  " + highestScore.highestNames[1];
 		JLabel secondS = new JLabel(string2);
 		secondS.setFont(GameFont.fontWithSize(fontSize));
 		secondS.setForeground(textColor);
 		
-		String string3 = " 3. " + highestScore.highestScores[2];
+		String string3 = " 3. " + highestScore.highestScores[2] + "  -  " + highestScore.highestNames[2];
 		JLabel thirdS = new JLabel(string3);
 		thirdS.setFont(GameFont.fontWithSize(fontSize));
 		thirdS.setForeground(textColor);
 		
-		String string4 = " 4. " + highestScore.highestScores[3];
+		String string4 = " 4. " + highestScore.highestScores[3] + "  -  " + highestScore.highestNames[3];
 		JLabel fourthS = new JLabel(string4);
 		fourthS.setFont(GameFont.fontWithSize(fontSize));
 		fourthS.setForeground(textColor);
 		
-		String string5 = " 5. " + highestScore.highestScores[4];
+		String string5 = " 5. " + highestScore.highestScores[4] + "  -  " + highestScore.highestNames[4];
 		JLabel fifthS = new JLabel(string5);
 		fifthS.setFont(GameFont.fontWithSize(fontSize));
 		fifthS.setForeground(textColor);
@@ -166,11 +199,12 @@ public class GameResults
 		
 		
 		JPanel sP = new JPanel();
-		sP.setLayout(new GridLayout(2,1));
+		sP.setLayout(new GridLayout(3,1));
 		sP.setOpaque(false);
 		
 		sP.add(finalScore);
 		sP.add(hsS);
+		sP.add(name);
 		
 		again.add(over);
 		again.add(scorePanel);

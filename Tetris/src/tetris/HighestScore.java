@@ -15,15 +15,18 @@ public class HighestScore
 	private final int SIZE = 5;		// list of 5 high scores
 	
 	protected int[] tempScores = new int[100];
+	protected String[] playerNames = new String[100];
+	
+	protected String[] highestNames = new String[SIZE];
 	protected int[] highestScores = new int[SIZE];
-	private String fileName = "resources/highestScores.dat";
+	private String fileName = "resources/highestScores.txt";
 	private int counter = 0;
 
 	/**
 	 * Append and save current high score to data file
 	 * @param score to save
 	 */
-	public void saveScores(int score)
+	public void saveScores(int score, String name)
 	{
 		PrintWriter textFile = null;
 		
@@ -33,7 +36,8 @@ public class HighestScore
 			textFile = new PrintWriter(new FileWriter(fileName, true));
 			
 			// write score
-			textFile.println(score);
+			String temp = score + " " + name;
+			textFile.println(temp);
 			textFile.close();
 		}
 		catch (IOException e)
@@ -55,25 +59,31 @@ public class HighestScore
 			
 			while(inputStream.hasNextLine())
 			{
-				if((inputStream.hasNextInt()) && (counter < 100))
+				if(inputStream.hasNextInt())
 				{
 					tempScores[counter] = inputStream.nextInt();
+				}
+				else break;
+							
+				if(inputStream.hasNext())
+				{
+					playerNames[counter] = inputStream.next();
 					counter++;
 				}
-				else
-					break;
+				else break;
 			}
 			inputStream.close();
 		}
 		catch (FileNotFoundException e)
 		{
-			JOptionPane.showMessageDialog(null, "Something went wrong!", "Error", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Something went wrong! 123", "Error", JOptionPane.WARNING_MESSAGE);
 		}
 			
 		
 		// bubble sorting using
 		// temporary variable to hold values in List
 		int temp;
+		String temp1;
 		
 		// outer loop
 		for(int a=1; a <= tempScores.length; a++)
@@ -86,6 +96,12 @@ public class HighestScore
 					temp = tempScores[b];
 					tempScores[b] = tempScores[b+1];
 					tempScores[b+1] = temp;
+					
+					
+					// sort name
+					temp1 = playerNames[b];
+					playerNames[b] = playerNames[b+1];
+					playerNames[b+1] = temp1;
 				}
 			}
 		}
@@ -94,6 +110,12 @@ public class HighestScore
 		for(int x=0; x < SIZE; x++)
 		{
 			highestScores[x] = tempScores[x];
+			
+			if(playerNames[x] == null)
+			{
+				highestNames[x] = "";
+			}
+			else highestNames[x] = playerNames[x];
 		}
 	}
 	
@@ -104,5 +126,6 @@ public class HighestScore
 	{
 		Arrays.fill(highestScores, 0);
 		Arrays.fill(tempScores, 0);
+		Arrays.fill(highestNames, null);
 	}
 }
