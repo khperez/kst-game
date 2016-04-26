@@ -1,11 +1,11 @@
 package tetris;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -77,7 +77,7 @@ public class GameResults
 						// save score and name to text file
 						if(playerName.getText().equals(""))
 						{
-							saveName = "NA";
+							saveName = "???";
 						}
 						else saveName = playerName.getText();
 						
@@ -97,7 +97,7 @@ public class GameResults
 						// save score and name to text file
 						if(playerName.getText().equals(""))
 						{
-							saveName = "NA";
+							saveName = "???";
 						}
 						else saveName = playerName.getText();
 						
@@ -115,8 +115,6 @@ public class GameResults
 		JLabel over = new JLabel("GAME OVER", JLabel.CENTER);
 		over.setFont(GameFont.fontWithSize(42f));
 		over.setForeground(Color.RED);
-		
-		
 		
 		
 		// create label display player's score
@@ -147,7 +145,7 @@ public class GameResults
 		
 		// create panel for player name
 		JPanel name = new JPanel();
-		name.setLayout(new GridLayout(1,2));
+		name.setLayout(new GridLayout(1, 2, 5, 0));
 		
 		// create label "Enter name:" 
 		JLabel enterName = new JLabel("ENTER NAME: ", JLabel.CENTER);
@@ -158,17 +156,24 @@ public class GameResults
 		playerName = new JTextField();
 		playerName.setForeground(Color.RED);
 		playerName.setOpaque(false);
-		//playerName.setBackground(Color.GRAY);
-		Font font1 = new Font("SansSerif", Font.BOLD, 25);
-		playerName.setFont(font1);
+		playerName.setFont(GameFont.fontWithSize(25f));
+		
+		// force all caps
+		playerName.addKeyListener(new KeyAdapter()
+		{
+			  public void keyTyped(KeyEvent e)
+			  {
+				    char keyChar = e.getKeyChar();
+				    if (Character.isLowerCase(keyChar))
+				    {
+				    	e.setKeyChar(Character.toUpperCase(keyChar));
+				    }
+			  }
+		});
 
-		
-		
 		name.add(enterName);
 		name.add(playerName);
-		name.setOpaque(false);
-		
-		
+		name.setOpaque(false);		
 		
 		// create layout for labels to display highest scores
 		JPanel scorePanel = new JPanel();
@@ -180,27 +185,27 @@ public class GameResults
 		highest.setFont(GameFont.fontWithSize(fontSize));
 		highest.setForeground(textColor);
 		
-		String string1 = " 1. " + highestScore.highestScores[0] + "  -  " + highestScore.highestNames[0];
+		String string1 = " 1) " + highestScore.highestNames[0] + "  |  " + highestScore.highestScores[0];
 		JLabel firstS = new JLabel(string1);
 		firstS.setFont(GameFont.fontWithSize(fontSize));
 		firstS.setForeground(textColor);
 		
-		String string2 = " 2. " + highestScore.highestScores[1] + "  -  " + highestScore.highestNames[1];
+		String string2 = " 2) " + highestScore.highestNames[1] + "  |  " + highestScore.highestScores[1];
 		JLabel secondS = new JLabel(string2);
 		secondS.setFont(GameFont.fontWithSize(fontSize));
 		secondS.setForeground(textColor);
 		
-		String string3 = " 3. " + highestScore.highestScores[2] + "  -  " + highestScore.highestNames[2];
+		String string3 = " 3) " + highestScore.highestNames[2] + "  |  " + highestScore.highestScores[2];
 		JLabel thirdS = new JLabel(string3);
 		thirdS.setFont(GameFont.fontWithSize(fontSize));
 		thirdS.setForeground(textColor);
 		
-		String string4 = " 4. " + highestScore.highestScores[3] + "  -  " + highestScore.highestNames[3];
+		String string4 = " 4) " + highestScore.highestNames[3] + "  |  " + highestScore.highestScores[3];
 		JLabel fourthS = new JLabel(string4);
 		fourthS.setFont(GameFont.fontWithSize(fontSize));
 		fourthS.setForeground(textColor);
 		
-		String string5 = " 5. " + highestScore.highestScores[4] + "  -  " + highestScore.highestNames[4];
+		String string5 = " 5) " + highestScore.highestNames[4] + "  |  " + highestScore.highestScores[4];
 		JLabel fifthS = new JLabel(string5);
 		fifthS.setFont(GameFont.fontWithSize(fontSize));
 		fifthS.setForeground(textColor);
