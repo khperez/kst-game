@@ -37,11 +37,7 @@ public class GameResults
 		// background panel
 		ImageBGPanel again = new ImageBGPanel("images/tetris_go.png");
 		again.setLayout(new GridLayout(4,1));
-		
-//		//panel
-//		f.setBackground(Color.BLACK);
-//		f.setLayout(new GridLayout(4,1));
-		
+	
 		//generate buttons
 		float fontSize = 26f;
 		Color textColor = Color.WHITE;
@@ -99,6 +95,10 @@ public class GameResults
 		finalScore.setFont(GameFont.fontWithSize(20f));
 		finalScore.setForeground(textColor);
 		
+		JLabel hsS = new JLabel("", JLabel.CENTER);
+		hsS.setFont(GameFont.fontWithSize(20f));
+		hsS.setForeground(textColor);
+		
 		// save score to text file
 		highestScore.saveScores(ScoreCounter.getScore());
 		
@@ -108,13 +108,15 @@ public class GameResults
 		//compare player's score with the top
 		if((ScoreCounter.getScore()) >= (highestScore.highestScores[0]))
 		{
-			temp = "YOUR SCORE IS: " + ScoreCounter.getScoreString() + "! NEW HIGH SCORE!";
+			temp = "YOUR SCORE IS: " + ScoreCounter.getScoreString();
 			finalScore.setText(temp);
+			hsS.setText("NEW HIGH SCORE!");
 		}
 		else
 		{
 			temp = "YOUR SCORE IS: " + ScoreCounter.getScoreString();
 			finalScore.setText(temp);
+			hsS.setText("");
 		}
 		
 		// create layout for labels to display highest scores
@@ -162,9 +164,17 @@ public class GameResults
 		scorePanel.add(fourthS);
 		scorePanel.add(fifthS);
 		
+		
+		JPanel sP = new JPanel();
+		sP.setLayout(new GridLayout(2,1));
+		sP.setOpaque(false);
+		
+		sP.add(finalScore);
+		sP.add(hsS);
+		
 		again.add(over);
 		again.add(scorePanel);
-		again.add(finalScore);
+		again.add(sP);
 		
 		// create layout for play and exit buttons at bottom
 		JPanel btnPanel = new JPanel();
