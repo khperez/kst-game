@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
@@ -26,11 +27,12 @@ public class HighestScore
 	{
 		PrintWriter textFile = null;
 		
-		try {
-			//Append mode set here
+		try
+		{
+			// append mode set here
 			textFile = new PrintWriter(new FileWriter(fileName, true));
 			
-			//Write score
+			// write score
 			textFile.println(score);
 			textFile.close();
 		}
@@ -93,5 +95,14 @@ public class HighestScore
 		{
 			highestScores[x] = tempScores[x];
 		}
+	}
+	
+	/**
+	 * Clears all high score data in  memory
+	 */
+	public void clearAll()
+	{
+		Arrays.fill(highestScores, 0);
+		Arrays.fill(tempScores, 0);
 	}
 }

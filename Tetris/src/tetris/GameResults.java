@@ -27,16 +27,20 @@ public class GameResults
 	{
 		super();
 		
-		JFrame again = new JFrame("Game Over");
+		JFrame f = new JFrame("Game Over");
 		
-		again.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		again.setSize(500, 700);
-		again.setResizable(false);
-		again.setLocationRelativeTo(null);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setSize(500, 700);
+		f.setResizable(false);
+		f.setLocationRelativeTo(null);
 		
-		//panel
-		again.setBackground(Color.BLACK);
+		// background panel
+		ImageBGPanel again = new ImageBGPanel("images/tetris_go.png");
 		again.setLayout(new GridLayout(4,1));
+		
+//		//panel
+//		f.setBackground(Color.BLACK);
+//		f.setLayout(new GridLayout(4,1));
 		
 		//generate buttons
 		float fontSize = 26f;
@@ -70,8 +74,8 @@ public class GameResults
 						ScoreCounter.resetScore();
 						
 						// bring back the menu
-						again.setVisible(false);
-						again.dispose();
+						f.setVisible(false);
+						f.dispose();
 						new Menu();
 					}
 					
@@ -92,7 +96,8 @@ public class GameResults
 		
 		// create label display player's score
 		JLabel finalScore = new JLabel("", JLabel.CENTER);
-		finalScore.setFont(GameFont.fontWithSize(36f));
+		finalScore.setFont(GameFont.fontWithSize(20f));
+		finalScore.setForeground(textColor);
 		
 		// save score to text file
 		highestScore.saveScores(ScoreCounter.getScore());
@@ -120,26 +125,35 @@ public class GameResults
 		// create labels for highest scores
 		JLabel highest = new JLabel("HIGH SCORES", JLabel.CENTER);
 		highest.setFont(GameFont.fontWithSize(fontSize));
+		highest.setForeground(textColor);
 		
 		String string1 = " 1. " + highestScore.highestScores[0];
 		JLabel firstS = new JLabel(string1);
 		firstS.setFont(GameFont.fontWithSize(fontSize));
+		firstS.setForeground(textColor);
 		
 		String string2 = " 2. " + highestScore.highestScores[1];
 		JLabel secondS = new JLabel(string2);
 		secondS.setFont(GameFont.fontWithSize(fontSize));
+		secondS.setForeground(textColor);
 		
 		String string3 = " 3. " + highestScore.highestScores[2];
 		JLabel thirdS = new JLabel(string3);
 		thirdS.setFont(GameFont.fontWithSize(fontSize));
+		thirdS.setForeground(textColor);
 		
 		String string4 = " 4. " + highestScore.highestScores[3];
 		JLabel fourthS = new JLabel(string4);
 		fourthS.setFont(GameFont.fontWithSize(fontSize));
+		fourthS.setForeground(textColor);
 		
 		String string5 = " 5. " + highestScore.highestScores[4];
 		JLabel fifthS = new JLabel(string5);
 		fifthS.setFont(GameFont.fontWithSize(fontSize));
+		fifthS.setForeground(textColor);
+		
+		// remove high score data from memory in case user plays again
+		highestScore.clearAll();
 		
 		scorePanel.add(highest);
 		scorePanel.add(firstS);
@@ -161,7 +175,9 @@ public class GameResults
 		btnPanel.add(layoutExit);
 		
 		again.add(btnPanel);
+		
+		f.add(again);
 	
-		again.setVisible(true);
+		f.setVisible(true);
 	}
 }
