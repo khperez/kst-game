@@ -1,6 +1,8 @@
 package tetris;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -73,7 +75,12 @@ public class GameResults
 						
 						
 						// save score and name to text file
-						saveName = playerName.getText();
+						if(playerName.getText().equals(""))
+						{
+							saveName = "NA";
+						}
+						else saveName = playerName.getText();
+						
 						highestScore.saveScores(ScoreCounter.getScore(), saveName);
 						
 						// reset score to 0
@@ -88,7 +95,12 @@ public class GameResults
 					else if(name.equals("EXIT"))
 					{
 						// save score and name to text file
-						saveName = playerName.getText();
+						if(playerName.getText().equals(""))
+						{
+							saveName = "NA";
+						}
+						else saveName = playerName.getText();
+						
 						highestScore.saveScores(ScoreCounter.getScore(), saveName);
 						
 						System.exit(0);
@@ -144,11 +156,17 @@ public class GameResults
 		
 		// create text field for player enter name
 		playerName = new JTextField();
+		playerName.setForeground(Color.RED);
+		playerName.setOpaque(false);
+		//playerName.setBackground(Color.GRAY);
+		Font font1 = new Font("SansSerif", Font.BOLD, 25);
+		playerName.setFont(font1);
 
 		
 		
 		name.add(enterName);
 		name.add(playerName);
+		name.setOpaque(false);
 		
 		
 		

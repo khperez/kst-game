@@ -19,7 +19,7 @@ public class HighestScore
 	
 	protected String[] highestNames = new String[SIZE];
 	protected int[] highestScores = new int[SIZE];
-	private String fileName = "resources/highestScores.txt";
+	private String fileName = "resources/highestScores.dat";
 	private int counter = 0;
 
 	/**
@@ -35,6 +35,7 @@ public class HighestScore
 			// append mode set here
 			textFile = new PrintWriter(new FileWriter(fileName, true));
 			
+						
 			// write score
 			String temp = score + " " + name;
 			textFile.println(temp);
@@ -76,7 +77,7 @@ public class HighestScore
 		}
 		catch (FileNotFoundException e)
 		{
-			JOptionPane.showMessageDialog(null, "Something went wrong! 123", "Error", JOptionPane.WARNING_MESSAGE);
+			//JOptionPane.showMessageDialog(null, "Something went wrong! 123", "Error", JOptionPane.WARNING_MESSAGE);
 		}
 			
 		
@@ -127,5 +128,6 @@ public class HighestScore
 		Arrays.fill(highestScores, 0);
 		Arrays.fill(tempScores, 0);
 		Arrays.fill(highestNames, null);
+		Arrays.fill(playerNames, null);
 	}
 }
