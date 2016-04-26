@@ -32,7 +32,7 @@ public class Menu extends JPanel
 		// window frame
 		JFrame f = new JFrame("TETRIS");
 		
-		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setSize(Tetris.WINDOWWIDTH, Tetris.WINDOWHEIGHT);
 		f.setResizable(false);
 		f.setLocationRelativeTo(null);
